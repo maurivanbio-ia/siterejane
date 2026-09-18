@@ -325,7 +325,7 @@ p { margin: 0; }
 
 .hero-media { position: relative; min-height: 640px; }
 .hero-media .organic { position: absolute; inset: 0 0 0 0; }
-.hero-media .organic img { object-position: 100% 30%; transform-origin: 100% 50%; transform: translateY(var(--parallax, 0px)) scale(1.06); will-change: transform; }
+.hero-media .organic img { object-position: 55% 22%; filter: sepia(.2) brightness(.93) contrast(1.04); transform: translateY(var(--parallax, 0px)) scale(1.06); will-change: transform; }
 .hero-badge {
   position: absolute; left: 4%; bottom: 12%; z-index: 3;
   background: var(--white); border-radius: var(--radius-md); box-shadow: var(--shadow-floating);
@@ -359,26 +359,15 @@ p { margin: 0; }
    8. SOBRE MIM (scrapbook restrito a esta seção)
    ========================================================= */
 .about-grid { display: grid; grid-template-columns: 5fr 7fr; gap: var(--space-10); align-items: center; }
-.about-collage { position: relative; min-height: 600px; }
+.about-collage { position: relative; padding: 0 0 var(--space-8) var(--space-6); }
 
-.polaroid {
-  position: absolute; background: var(--white); padding: 14px 14px 64px; box-shadow: var(--shadow-floating);
-  transform: rotate(-2deg);
-}
-.polaroid .ph { aspect-ratio: 4 / 5; overflow: hidden; }
-.polaroid img { width: 100%; height: 100%; object-fit: cover; }
+/* Polaroid: a imagem já traz moldura e fita adesiva */
+.polaroid { position: relative; z-index: 2; margin: 0; width: 86%; transform: rotate(-1deg); }
+.polaroid img { width: 100%; height: auto; clip-path: inset(0 0 0 2.4%); filter: drop-shadow(0 14px 30px rgba(64, 45, 32, 0.14)); }
 .polaroid figcaption {
-  position: absolute; left: 20px; right: 20px; bottom: 14px;
-  font-family: var(--font-hand); font-size: 30px; line-height: 1; color: var(--ink-900);
+  margin: var(--space-4) 0 0 var(--space-7); transform: rotate(-3deg);
+  font-family: var(--font-hand); font-size: 34px; line-height: 1.05; color: var(--clay-600);
 }
-.polaroid--main { top: 0; left: 4%; width: 70%; z-index: 2; }
-.polaroid--raw { background: none; padding: 0; box-shadow: none; transform: rotate(-1deg); }
-.polaroid--raw img { width: 100%; height: auto; clip-path: inset(0 0 0 2.4%); filter: drop-shadow(0 14px 30px rgba(64, 45, 32, 0.14)); }
-.polaroid--raw figcaption { position: static; max-width: 52%; margin: var(--space-3) 0 0 var(--space-2); color: var(--clay-600); transform: rotate(-3deg); }
-.polaroid--small img { object-position: 50% 30%; }
-.polaroid--small { right: 0; bottom: 0; width: 44%; transform: rotate(3deg); z-index: 3; padding-bottom: 60px; }
-.polaroid--small figcaption { font-size: 22px; bottom: 8px; }
-.polaroid--small .ph { aspect-ratio: 1; }
 
 .tape {
   position: absolute; width: 110px; height: 30px; z-index: 4;
@@ -386,8 +375,6 @@ p { margin: 0; }
   box-shadow: 0 1px 2px rgba(64, 45, 32, .06);
   clip-path: polygon(3% 8%, 97% 0, 100% 90%, 1% 100%);
 }
-.polaroid--main .tape { top: -14px; left: 50%; transform: translateX(-50%) rotate(-4deg); }
-.polaroid--small .tape { top: -12px; right: 18px; width: 80px; transform: rotate(8deg); }
 
 .about-leaf { position: absolute; left: -20px; bottom: 10px; width: 140px; color: var(--clay-400); opacity: .7; z-index: 1; }
 
@@ -643,7 +630,7 @@ p { margin: 0; }
   .essence-list li:nth-child(4)::before { display: none; }
 
   .about-grid, .therapy-head, .process-grid, .travel, .faq-grid, .contact-grid { grid-template-columns: 1fr; gap: var(--space-8); }
-  .about-collage { min-height: 560px; max-width: 560px; width: 100%; margin-inline: auto; }
+  .about-collage { max-width: 560px; width: 100%; margin-inline: auto; }
   .timeline { grid-template-columns: repeat(2, 1fr); row-gap: var(--space-8); }
   .timeline::before { display: none; }
   .services, .articles { grid-template-columns: repeat(2, 1fr); }
@@ -663,10 +650,9 @@ p { margin: 0; }
   .essence-list { grid-template-columns: repeat(2, 1fr); }
   .essence-list li:nth-child(odd)::before { display: none; }
   .essence-list li:nth-child(4)::before { display: block; }
-  .about-collage { min-height: 470px; }
-  .polaroid--main { width: 78%; left: 0; }
-  .polaroid--small { width: 46%; }
-  .polaroid--raw figcaption { max-width: 36%; font-size: 24px; }
+  .about-collage { padding-left: var(--space-4); }
+  .polaroid { width: 92%; }
+  .polaroid figcaption { font-size: 28px; margin-left: var(--space-6); }
   .timeline, .services, .articles, .notes { grid-template-columns: 1fr; }
   .note:nth-child(2) { margin-top: 0; }
   .form-card { padding: var(--space-7) var(--space-5); }
@@ -827,7 +813,7 @@ p { margin: 0; }
     <div class="hero-media">
       <!-- Substituir pela fotografia de Rejane (luz natural, tons quentes) -->
       <div class="organic organic-left ph" data-label="Foto de Rejane">
-        <img class="photo" src="img/rejane-consultorio.jpg" alt="Rejane Rispoli sorrindo em seu consultório, sentada à mesa com notebook, caderno e xícara de café" onerror="this.remove()">
+        <img class="photo" src="img/rejane-folha.jpg" alt="Rejane Rispoli sorrindo, com uma folha de outono cobrindo parte do rosto" onerror="this.remove()">
       </div>
       <div class="hero-badge reveal reveal-d3">
         <span class="icon-circle"><svg class="icon" aria-hidden="true"><use href="#i-globe"/></svg></span>
@@ -862,16 +848,9 @@ p { margin: 0; }
   <div class="container">
     <div class="about-grid">
       <div class="about-collage reveal">
-        <figure class="polaroid polaroid--main polaroid--raw">
+        <figure class="polaroid">
           <img src="img/rejane-polaroid-cachorro.jpg" alt="Rejane abraçada ao seu cachorro, em foto preto e branco estilo polaroid" onerror="this.remove()">
           <figcaption>A vida é mais bonita com eles.</figcaption>
-        </figure>
-        <figure class="polaroid polaroid--small">
-          <span class="tape" aria-hidden="true"></span>
-          <div class="ph" data-label="Rejane">
-            <img src="img/rejane-folha.jpg" alt="Rejane sorrindo com uma folha de outono cobrindo parte do rosto, em foto preto e branco" onerror="this.remove()">
-          </div>
-          <figcaption>Novos lugares, novas versões.</figcaption>
         </figure>
         <svg class="about-leaf" aria-hidden="true"><use href="#botanical"/></svg>
       </div>
