@@ -1246,7 +1246,7 @@ p { margin: 0; }
       </ul>
     </div>
     <div class="footer-bottom caption">
-      <span>© <span id="year">2026</span> Rejane Rispoli. Todos os direitos reservados.</span>
+      <span><span id="admin-door">©</span> <span id="year">2026</span> Rejane Rispoli. Todos os direitos reservados.</span>
       <nav aria-label="Legal">
         <a href="#">Política de Privacidade</a>
         <a href="#">Termos de Uso</a>
@@ -1267,6 +1267,11 @@ p { margin: 0; }
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Acesso discreto ao painel: três cliques no "©" do rodapé
+  document.getElementById("admin-door").addEventListener("click", (e) => {
+    if (e.detail === 3) window.location.href = "admin.html";
+  });
 
   // Header: reduz altura no scroll
   const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 24);
@@ -1371,5 +1376,7 @@ p { margin: 0; }
   });
 })();
 </script>
+<script src="analytics-config.js"></script>
+<script src="analytics.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Painel · Rejane Rispoli</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+
+<style>
+:root {
+  --cream-50: #FAF7F2; --cream-100: #F5EEE5; --cream-200: #EADCCD; --sand-300: #D8C3AD;
+  --clay-400: #C58C70; --clay-500: #A96246; --clay-600: #8D4F38;
+  --olive-500: #73705D; --brown-600: #625348; --ink-900: #26211E; --white: #FFFCF8; --icon-bg: #F3E6D9;
+  --muted: #8A7B70;
+
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "Inter", Arial, sans-serif;
+  --font-hand: "Allura", cursive;
+
+  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 20px; --radius-pill: 999px;
+  --shadow-card: 0 4px 18px rgba(64, 45, 32, 0.05);
+  --shadow-floating: 0 14px 40px rgba(64, 45, 32, 0.10);
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --margin: 40px;
+}
+@media (max-width: 767px) { :root { --margin: 16px; } }
+
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--cream-50); color: var(--ink-900);
+  font-family: var(--font-body); font-size: 14px; line-height: 1.55; -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 400; }
+p { margin: 0; }
+button, input, select { font: inherit; }
+:focus-visible { outline: 2px solid var(--clay-500); outline-offset: 2px; }
+.icon { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--clay-500); }
+.muted { color: var(--muted); }
+[hidden] { display: none !important; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 40px; padding: 0 18px;
+  border-radius: var(--radius-pill); border: 1px solid var(--sand-300); background: transparent; color: var(--ink-900);
+  font-size: 13px; font-weight: 500; cursor: pointer; text-decoration: none; white-space: nowrap;
+  transition: background-color 180ms var(--ease), border-color 180ms, color 180ms;
+}
+.btn:hover { border-color: var(--clay-400); color: var(--clay-600); background: var(--white); }
+.btn--primary { background: var(--clay-500); border-color: var(--clay-500); color: var(--white); height: 48px; padding: 0 26px; font-size: 15px; }
+.btn--primary:hover { background: var(--clay-600); border-color: var(--clay-600); color: var(--white); }
+
+/* ---------- Login ---------- */
+.login { min-height: 100vh; display: grid; place-items: center; padding: 24px var(--margin); }
+.login-card {
+  width: 100%; max-width: 400px; background: var(--white); border-radius: var(--radius-lg); box-shadow: var(--shadow-floating);
+  padding: 40px 32px; text-align: center;
+}
+.login-card .mark { width: 60px; height: 60px; color: var(--clay-600); margin: 0 auto 16px; display: block; }
+.login-card h1 { font-size: 28px; }
+.login-card .hand { font-family: var(--font-hand); color: var(--clay-500); font-size: 26px; margin-top: 2px; }
+.login-form { display: grid; gap: 14px; margin-top: 28px; text-align: left; }
+.field { display: grid; gap: 6px; }
+.field label { font-size: 12px; font-weight: 500; }
+.field input {
+  background: var(--cream-50); border: 1px solid var(--sand-300); border-radius: var(--radius-sm); padding: 12px 14px; color: var(--ink-900);
+}
+.field input:focus { outline: none; border-color: var(--clay-400); box-shadow: 0 0 0 4px rgba(197, 140, 112, .15); }
+.login-form .btn--primary { width: 100%; margin-top: 6px; }
+.login-note { margin-top: 18px; font-size: 12px; color: var(--muted); }
+.login-error { color: var(--clay-600); font-size: 13px; min-height: 1.2em; }
+.back-link { display: inline-block; margin-top: 22px; font-size: 12px; color: var(--brown-600); }
+
+/* ---------- Top bar ---------- */
+.topbar {
+  position: sticky; top: 0; z-index: 1000; background: rgba(250, 247, 242, .94); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--cream-200);
+}
+.topbar-inner {
+  max-width: 1400px; margin: 0 auto; padding: 14px var(--margin);
+  display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+}
+.brand { display: flex; align-items: center; gap: 12px; color: var(--ink-900); text-decoration: none; }
+.brand svg { width: 40px; height: 40px; color: var(--clay-600); }
+.brand strong { font-family: var(--font-display); font-weight: 400; font-size: 19px; display: block; line-height: 1.1; }
+.brand span { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--brown-600); }
+.controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.segmented { display: inline-flex; background: var(--cream-100); border: 1px solid var(--cream-200); border-radius: var(--radius-pill); padding: 3px; }
+.segmented button {
+  border: 0; background: transparent; height: 32px; padding: 0 14px; border-radius: var(--radius-pill);
+  font-size: 13px; color: var(--brown-600); cursor: pointer; transition: background-color 180ms, color 180ms;
+}
+.segmented button[aria-pressed="true"] { background: var(--white); color: var(--ink-900); box-shadow: 0 1px 4px rgba(64, 45, 32, .08); }
+@media (max-width: 600px) {
+  .btn-text { display: none; }
+  .controls .btn { width: 40px; padding: 0; }
+  .demo-badge { order: -1; }
+}
+.demo-badge {
+  display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-radius: var(--radius-pill);
+  background: var(--icon-bg); color: var(--clay-600); font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+}
+
+/* ---------- Layout ---------- */
+.dash { max-width: 1400px; margin: 0 auto; padding: 32px var(--margin) 64px; }
+.dash-head { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+.dash-head h1 { font-size: 36px; line-height: 1.1; letter-spacing: -0.01em; }
+.dash-head p { color: var(--brown-600); margin-top: 6px; }
+.grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; }
+.span-3 { grid-column: span 3; } .span-4 { grid-column: span 4; } .span-5 { grid-column: span 5; }
+.span-7 { grid-column: span 7; } .span-8 { grid-column: span 8; } .span-12 { grid-column: span 12; }
+@media (max-width: 1100px) { .span-3 { grid-column: span 6; } .span-4, .span-5, .span-7, .span-8 { grid-column: span 12; } }
+@media (max-width: 600px) { .span-3 { grid-column: span 12; } }
+
+.card { background: var(--white); border: 1px solid var(--cream-200); border-radius: var(--radius-md); padding: 22px 24px; box-shadow: var(--shadow-card); min-width: 0; }
+.card-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+.card-head h2 { font-size: 20px; line-height: 1.25; }
+.card-head .sub { font-size: 12px; color: var(--muted); }
+
+/* KPI */
+.kpi .label { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--brown-600); }
+.kpi .label .icon { color: var(--clay-400); }
+.kpi .value { font-family: var(--font-display); font-size: 40px; line-height: 1.1; margin-top: 10px; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.kpi .delta { margin-top: 6px; font-size: 12px; color: var(--brown-600); }
+.kpi .delta b { font-weight: 600; color: var(--ink-900); }
+.kpi .spark { display: block; width: 100%; height: 34px; margin-top: 12px; }
+
+/* Area chart */
+.chart { position: relative; }
+.chart svg { display: block; width: 100%; height: 280px; overflow: visible; }
+.chart .grid-line { stroke: var(--cream-200); stroke-width: 1; }
+.chart .axis-label { fill: var(--muted); font-size: 11px; font-family: var(--font-body); }
+.chart .area { fill: rgba(169, 98, 70, .10); }
+.chart .line { fill: none; stroke: var(--clay-500); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.chart .line-prev { fill: none; stroke: var(--sand-300); stroke-width: 1.5; stroke-dasharray: 4 4; }
+.chart .cross { stroke: var(--brown-600); stroke-width: 1; stroke-dasharray: 2 3; }
+.chart .dot { fill: var(--clay-500); stroke: var(--white); stroke-width: 2; }
+.legend { display: flex; gap: 18px; font-size: 12px; color: var(--brown-600); flex-wrap: wrap; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 16px; height: 2px; background: var(--clay-500); display: inline-block; border-radius: 2px; }
+.legend i.prev { background: repeating-linear-gradient(90deg, var(--sand-300) 0 4px, transparent 4px 7px); height: 2px; }
+
+.tooltip {
+  position: fixed; z-index: 2000; pointer-events: none; background: var(--ink-900); color: var(--cream-50);
+  border-radius: var(--radius-sm); padding: 8px 12px; font-size: 12px; line-height: 1.45; box-shadow: var(--shadow-floating);
+  opacity: 0; transform: translateY(4px); transition: opacity 120ms, transform 120ms; max-width: 240px;
+}
+.tooltip.show { opacity: 1; transform: none; }
+.tooltip b { font-weight: 600; }
+.tooltip .t-muted { color: #CBBBAE; }
+
+/* Bars */
+.bars { display: grid; gap: 12px; list-style: none; margin: 0; padding: 0; }
+.bar-row { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: center; cursor: default; }
+.bar-row .name { display: flex; align-items: center; gap: 8px; font-size: 13px; min-width: 0; }
+.bar-row .name span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bar-row .name .icon { width: 16px; height: 16px; color: var(--clay-400); }
+.bar-row .num { font-size: 13px; font-variant-numeric: tabular-nums; color: var(--ink-900); }
+.bar-row .num small { color: var(--muted); font-size: 11px; margin-left: 6px; }
+.bar-track { grid-column: 1 / -1; height: 6px; background: var(--cream-100); border-radius: 4px; overflow: hidden; }
+.bar-fill { height: 100%; background: var(--clay-400); border-radius: 0 4px 4px 0; transition: width 500ms var(--ease); }
+.bar-row:hover .bar-fill { background: var(--clay-500); }
+
+/* Map */
+.map-wrap { display: grid; grid-template-columns: 1fr 300px; gap: 20px; }
+@media (max-width: 900px) { .map-wrap { grid-template-columns: 1fr; } }
+#map { height: 460px; border-radius: var(--radius-sm); border: 1px solid var(--cream-200); background: var(--cream-100); z-index: 0; }
+#map .leaflet-tile-pane { filter: sepia(.25) saturate(.8) brightness(1.02); }
+.leaflet-container { font-family: var(--font-body); }
+.leaflet-tooltip.geo-tip {
+  background: var(--ink-900); color: var(--cream-50); border: 0; border-radius: var(--radius-sm); padding: 8px 12px;
+  box-shadow: var(--shadow-floating); font-size: 12px;
+}
+.leaflet-tooltip.geo-tip::before { display: none; }
+.map-tools { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.map-tools select {
+  height: 36px; padding: 0 34px 0 14px; border-radius: var(--radius-pill); border: 1px solid var(--sand-300); background: var(--white);
+  color: var(--ink-900); font-size: 13px; appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%23A96246' stroke-width='1.4'%3E%3Cpath d='m1 1.5 5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center;
+}
+.map-side h3 { font-family: var(--font-body); font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--brown-600); margin: 0 0 12px; }
+.map-side .bars { max-height: 300px; overflow: auto; padding-right: 4px; }
+.size-legend { display: flex; align-items: end; gap: 14px; margin-top: 20px; font-size: 11px; color: var(--muted); }
+.size-legend div { display: grid; justify-items: center; gap: 4px; }
+.size-legend i { display: block; border-radius: 50%; background: rgba(169, 98, 70, .45); border: 1.5px solid var(--white); box-shadow: 0 0 0 1px rgba(169, 98, 70, .5); }
+.countries { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.chip { font-size: 12px; background: var(--cream-100); border: 1px solid var(--cream-200); border-radius: var(--radius-pill); padding: 4px 12px; color: var(--brown-600); }
+.chip b { color: var(--ink-900); font-weight: 500; }
+
+/* Heatmap */
+.heat { display: grid; grid-template-columns: 34px repeat(24, 1fr); gap: 3px; align-items: center; }
+.heat .h-label { font-size: 11px; color: var(--muted); }
+.heat .h-hour { font-size: 10px; color: var(--muted); text-align: center; }
+.heat .cell { aspect-ratio: 1; border-radius: 3px; background: var(--cream-100); min-width: 0; }
+.heat .cell:hover { outline: 1.5px solid var(--ink-900); outline-offset: 1px; }
+.heat-legend { display: flex; align-items: center; gap: 6px; margin-top: 14px; font-size: 11px; color: var(--muted); }
+.heat-legend i { width: 16px; height: 10px; border-radius: 2px; display: inline-block; }
+
+/* Funnel */
+.funnel { display: grid; gap: 14px; }
+.funnel-step { display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; }
+.funnel-step .name { font-size: 13px; }
+.funnel-step .num { font-size: 13px; font-variant-numeric: tabular-nums; }
+.funnel-step .num small { color: var(--muted); margin-left: 6px; font-size: 11px; }
+.funnel-step .bar-track { height: 10px; }
+.funnel-step .bar-fill { background: var(--clay-500); }
+
+/* Table */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--brown-600); padding: 0 12px 10px 0; border-bottom: 1px solid var(--cream-200); white-space: nowrap; }
+td { padding: 11px 12px 11px 0; border-bottom: 1px solid var(--cream-100); white-space: nowrap; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.pill { display: inline-block; font-size: 11px; padding: 2px 10px; border-radius: var(--radius-pill); background: var(--cream-100); color: var(--brown-600); }
+.pill--cta { background: var(--icon-bg); color: var(--clay-600); }
+
+details.data-table summary { cursor: pointer; font-size: 12px; color: var(--clay-500); margin-top: 12px; list-style: none; }
+details.data-table summary::-webkit-details-marker { display: none; }
+details.data-table .table-wrap { max-height: 240px; overflow: auto; margin-top: 10px; }
+
+.foot-note { margin-top: 28px; font-size: 12px; color: var(--muted); text-align: center; }
+.empty { color: var(--muted); font-size: 13px; padding: 12px 0; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="logo-rr" viewBox="0 0 64 64">
+    <circle cx="32" cy="32" r="30.5" fill="none" stroke="currentColor" stroke-width="1"/>
+    <text x="18" y="41" font-family="Playfair Display, Georgia, serif" font-size="26" fill="currentColor">R</text>
+    <text x="28" y="44" font-family="Playfair Display, Georgia, serif" font-size="26" fill="currentColor">R</text>
+    <path d="M40 52c4-1 7-4 9-8" fill="none" stroke="currentColor" stroke-width=".8" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10Z"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></symbol>
+  <symbol id="i-tablet" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M11 18h2"/></symbol>
+  <symbol id="i-desktop" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+  <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+</svg>
+
+<!-- ================= LOGIN ================= -->
+<section class="login" id="login">
+  <div class="login-card">
+    <svg class="mark" aria-hidden="true"><use href="#logo-rr"/></svg>
+    <h1>Painel</h1>
+    <p class="hand">Rejane Rispoli</p>
+    <form class="login-form" id="login-form">
+      <div class="field" data-live>
+        <label for="l-email">E-mail</label>
+        <input id="l-email" type="email" autocomplete="username">
+      </div>
+      <div class="field" data-live>
+        <label for="l-pass">Senha</label>
+        <input id="l-pass" type="password" autocomplete="current-password">
+      </div>
+      <p class="login-error" role="alert"></p>
+      <button class="btn btn--primary" type="submit">Entrar</button>
+    </form>
+    <p class="login-note" id="login-note"></p>
+    <a class="back-link" href="index.html">← Voltar ao site</a>
+  </div>
+</section>
+
+<!-- ================= DASHBOARD ================= -->
+<div id="app" hidden>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="index.html" title="Abrir o site">
+        <svg aria-hidden="true"><use href="#logo-rr"/></svg>
+        <div><strong>Rejane Rispoli</strong><span>Painel de acessos</span></div>
+      </a>
+      <div class="controls">
+        <span class="demo-badge" id="demo-badge" hidden>Dados de demonstração</span>
+        <div class="segmented" role="group" aria-label="Período">
+          <button type="button" data-days="7" aria-pressed="false">7 dias</button>
+          <button type="button" data-days="30" aria-pressed="true">30 dias</button>
+          <button type="button" data-days="90" aria-pressed="false">90 dias</button>
+        </div>
+        <button class="btn" type="button" id="export" aria-label="Exportar CSV"><svg class="icon" aria-hidden="true"><use href="#i-download"/></svg><span class="btn-text">CSV</span></button>
+        <button class="btn" type="button" id="logout" aria-label="Sair"><svg class="icon" aria-hidden="true"><use href="#i-logout"/></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="dash">
+    <div class="dash-head">
+      <div>
+        <span class="eyebrow">Visão geral</span>
+        <h1 id="greeting">Olá, Rejane.</h1>
+        <p id="range-label"></p>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- KPIs -->
+      <article class="card kpi span-3" id="kpi-views"></article>
+      <article class="card kpi span-3" id="kpi-visitors"></article>
+      <article class="card kpi span-3" id="kpi-cta"></article>
+      <article class="card kpi span-3" id="kpi-form"></article>
+
+      <!-- Acessos por dia -->
+      <section class="card span-8">
+        <div class="card-head">
+          <h2>Acessos por dia</h2>
+          <div class="legend"><span><i></i>Período atual</span><span><i class="prev"></i>Período anterior</span></div>
+        </div>
+        <div class="chart" id="daily-chart"></div>
+        <details class="data-table"><summary>Ver como tabela</summary><div class="table-wrap" id="daily-table"></div></details>
+      </section>
+
+      <!-- Funil -->
+      <section class="card span-4">
+        <div class="card-head"><h2>Jornada do visitante</h2><span class="sub">visitantes únicos</span></div>
+        <div class="funnel" id="funnel"></div>
+      </section>
+
+      <!-- Geoportal -->
+      <section class="card span-12">
+        <div class="card-head">
+          <div><h2>De onde vêm os acessos</h2><span class="sub">Localização aproximada, por cidade</span></div>
+          <div class="map-tools">
+            <label class="visually-hidden" for="country-filter">País</label>
+            <select id="country-filter"><option value="">Todos os países</option></select>
+          </div>
+        </div>
+        <div class="map-wrap">
+          <div id="map" role="img" aria-label="Mapa com as cidades de origem dos acessos"></div>
+          <div class="map-side">
+            <h3>Cidades</h3>
+            <ul class="bars" id="city-bars"></ul>
+            <div class="size-legend" id="size-legend"></div>
+            <div class="countries" id="country-chips"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Origens / Seções / Dispositivos -->
+      <section class="card span-4">
+        <div class="card-head"><h2>Origem</h2><span class="sub">como chegaram ao site</span></div>
+        <ul class="bars" id="ref-bars"></ul>
+      </section>
+      <section class="card span-4">
+        <div class="card-head"><h2>Seções mais vistas</h2><span class="sub">% dos visitantes</span></div>
+        <ul class="bars" id="section-bars"></ul>
+      </section>
+      <section class="card span-4">
+        <div class="card-head"><h2>Dispositivos</h2><span class="sub">acessos</span></div>
+        <ul class="bars" id="device-bars"></ul>
+      </section>
+
+      <!-- Horários -->
+      <section class="card span-7">
+        <div class="card-head"><h2>Horários de maior movimento</h2><span class="sub">acessos por dia da semana e hora</span></div>
+        <div class="heat" id="heatmap"></div>
+        <div class="heat-legend" id="heat-legend"></div>
+      </section>
+
+      <!-- Recentes -->
+      <section class="card span-5">
+        <div class="card-head"><h2>Acessos recentes</h2></div>
+        <div class="table-wrap" id="recent"></div>
+      </section>
+    </div>
+
+    <p class="foot-note">Sem cookies de terceiros e sem guardar IPs: só a cidade aproximada, a origem e o tipo de aparelho.</p>
+  </main>
+</div>
+
+<div class="tooltip" id="tooltip" role="tooltip"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="analytics-config.js"></script>
+<script>
+(() => {
+  const cfg = window.RR_ANALYTICS || {};
+  const LIVE = !!(cfg.supabaseUrl && cfg.supabaseAnonKey);
+  const DAY = 86400000;
+  const $ = (s) => document.querySelector(s);
+  const fmt = new Intl.NumberFormat("pt-BR");
+  const pct = (n) => (n * 100).toLocaleString("pt-BR", { maximumFractionDigits: 0 }) + "%";
+  const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+  const SECTIONS = {
+    inicio: "Início", sobre: "Sobre mim", psicoterapia: "Psicoterapia", "como-funciona": "Como começamos",
+    conteudos: "Conteúdos", faq: "FAQ", contato: "Contato"
+  };
+  const REFS = {
+    instagram: ["Instagram", "i-instagram"], google: ["Google", "i-search"], direto: ["Acesso direto", "i-link"],
+    whatsapp: ["WhatsApp", "i-chat"], linkedin: ["LinkedIn", "i-linkedin"], facebook: ["Facebook", "i-link"], outros: ["Outros sites", "i-link"]
+  };
+  const DEVICES = { mobile: ["Celular", "i-phone"], tablet: ["Tablet", "i-tablet"], desktop: ["Computador", "i-desktop"] };
+
+  /* =========================================================
+     DADOS: demonstração (determinística) ou Supabase
+     ========================================================= */
+  function demoData() {
+    let seed = 20260918;
+    const rand = () => ((seed = (seed * 1664525 + 1013904223) % 4294967296) / 4294967296);
+    const pick = (list) => { const t = list.reduce((s, x) => s + x.w, 0); let r = rand() * t; for (const x of list) { if ((r -= x.w) <= 0) return x; } return list[0]; };
+
+    const cities = [
+      ["Goiânia", "Goiás", "Brasil", "BR", -16.686, -49.264, 14], ["São Paulo", "São Paulo", "Brasil", "BR", -23.55, -46.633, 10],
+      ["Brasília", "Distrito Federal", "Brasil", "BR", -15.794, -47.882, 7], ["Rio de Janeiro", "Rio de Janeiro", "Brasil", "BR", -22.907, -43.173, 6],
+      ["Belo Horizonte", "Minas Gerais", "Brasil", "BR", -19.917, -43.934, 4], ["Curitiba", "Paraná", "Brasil", "BR", -25.429, -49.271, 3],
+      ["Londres", "England", "Reino Unido", "GB", 51.507, -0.128, 12], ["Manchester", "England", "Reino Unido", "GB", 53.48, -2.242, 2],
+      ["Dublin", "Leinster", "Irlanda", "IE", 53.35, -6.26, 5], ["Lisboa", "Lisboa", "Portugal", "PT", 38.722, -9.139, 6],
+      ["Porto", "Porto", "Portugal", "PT", 41.158, -8.629, 3], ["Madri", "Madrid", "Espanha", "ES", 40.417, -3.704, 2],
+      ["Barcelona", "Catalunha", "Espanha", "ES", 41.385, 2.173, 2], ["Paris", "Île-de-France", "França", "FR", 48.857, 2.352, 2],
+      ["Berlim", "Berlim", "Alemanha", "DE", 52.52, 13.405, 1.5], ["Amsterdã", "Holanda do Norte", "Países Baixos", "NL", 52.37, 4.9, 1.5],
+      ["Zurique", "Zurique", "Suíça", "CH", 47.377, 8.542, 1], ["Toronto", "Ontário", "Canadá", "CA", 43.653, -79.383, 3],
+      ["Boston", "Massachusetts", "Estados Unidos", "US", 42.36, -71.058, 3], ["Nova York", "Nova York", "Estados Unidos", "US", 40.713, -74.006, 3],
+      ["Miami", "Flórida", "Estados Unidos", "US", 25.762, -80.192, 3], ["Orlando", "Flórida", "Estados Unidos", "US", 28.538, -81.379, 2],
+      ["Sydney", "Nova Gales do Sul", "Austrália", "AU", -33.869, 151.209, 1.5], ["Tóquio", "Tóquio", "Japão", "JP", 35.68, 139.69, 0.8]
+    ].map(([city, region, country, country_code, lat, lon, w]) => ({ city, region, country, country_code, lat, lon, w }));
+    const refs = [{ v: "instagram", w: 42 }, { v: "direto", w: 22 }, { v: "google", w: 19 }, { v: "whatsapp", w: 9 }, { v: "linkedin", w: 5 }, { v: "outros", w: 3 }];
+    const devices = [{ v: "mobile", w: 68 }, { v: "desktop", w: 27 }, { v: "tablet", w: 5 }];
+    const hours = Array.from({ length: 24 }, (_, h) => ({ v: h, w: h < 6 ? 0.3 : h < 9 ? 1.5 : h < 12 ? 3 : h < 14 ? 3.5 : h < 18 ? 2.6 : h < 23 ? 4.2 : 1.2 }));
+    const sectionProb = { sobre: .62, psicoterapia: .55, "como-funciona": .41, conteudos: .33, faq: .27, contato: .22 };
+
+    const records = [];
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const pool = [];
+    for (let d = 180; d >= 0; d--) {
+      const dayStart = today.getTime() - d * DAY;
+      const dow = new Date(dayStart).getDay();
+      const trend = 1 + (180 - d) / 180 * 0.6;
+      const weekly = dow === 0 ? .7 : dow === 6 ? .8 : dow === 1 ? 1.15 : 1;
+      const spike = rand() < .06 ? 2.2 : 1;
+      const n = Math.round((14 + rand() * 8) * trend * weekly * spike);
+      for (let i = 0; i < n; i++) {
+        let visitor;
+        if (pool.length > 20 && rand() < .22) visitor = pool[Math.floor(rand() * pool.length)];
+        else { visitor = "v" + Math.floor(rand() * 1e9).toString(36); pool.push(visitor); if (pool.length > 400) pool.shift(); }
+        const g = pick(cities);
+        const ref = spike > 1 && rand() < .5 ? "instagram" : pick(refs).v;
+        const dev = pick(devices).v;
+        const ts = dayStart + pick(hours).v * 3600000 + Math.floor(rand() * 3600000);
+        if (ts > Date.now()) continue;
+        const base = { visitor, referrer: ref, device: dev, city: g.city, region: g.region, country: g.country, country_code: g.country_code,
+          lat: g.lat + (rand() - .5) * .08, lon: g.lon + (rand() - .5) * .08 };
+        records.push({ ...base, event: "pageview", section: "inicio", created_at: ts });
+        for (const [s, p] of Object.entries(sectionProb)) if (rand() < p) records.push({ ...base, event: "section", section: s, created_at: ts + 20000 });
+        if (rand() < .085) records.push({ ...base, event: "cta", section: "contato", created_at: ts + 60000 });
+        if (rand() < .028) records.push({ ...base, event: "form", section: "contato", created_at: ts + 120000 });
+      }
+    }
+    return records;
+  }
+
+  let session = null;
+  try { session = JSON.parse(sessionStorage.getItem("rr_admin_session")); } catch {}
+
+  async function login(email, password) {
+    const res = await fetch(`${cfg.supabaseUrl}/auth/v1/token?grant_type=password`, {
+      method: "POST",
+      headers: { apikey: cfg.supabaseAnonKey, "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
+    if (!res.ok) throw new Error("E-mail ou senha incorretos.");
+    const j = await res.json();
+    session = { token: j.access_token, expires: Date.now() + j.expires_in * 1000, email };
+    try { sessionStorage.setItem("rr_admin_session", JSON.stringify(session)); } catch {}
+  }
+
+  async function fetchLive(sinceMs) {
+    const out = [];
+    const page = 1000;
+    for (let offset = 0; ; offset += page) {
+      const url = `${cfg.supabaseUrl}/rest/v1/visits?select=*&created_at=gte.${new Date(sinceMs).toISOString()}&order=created_at.desc&limit=${page}&offset=${offset}`;
+      const res = await fetch(url, { headers: { apikey: cfg.supabaseAnonKey, Authorization: `Bearer ${session.token}` } });
+      if (res.status === 401) { logout(); throw new Error("Sessão expirada."); }
+      const rows = await res.json();
+      rows.forEach((r) => out.push({ ...r, created_at: new Date(r.created_at).getTime() }));
+      if (rows.length < page) break;
+    }
+    return out;
+  }
+
+  /* =========================================================
+     AGREGAÇÃO
+     ========================================================= */
+  let ALL = [];
+  let days = 30;
+
+  function periodBounds(n) {
+    const end = new Date(); end.setHours(23, 59, 59, 999);
+    const start = end.getTime() - n * DAY + 1;
+    return { start, end: end.getTime(), prevStart: start - n * DAY, prevEnd: start - 1 };
+  }
+  const within = (a, b) => ALL.filter((r) => r.created_at >= a && r.created_at <= b);
+  const uniq = (rows) => new Set(rows.map((r) => r.visitor)).size;
+  const countBy = (rows, key) => rows.reduce((m, r) => (m[r[key]] = (m[r[key]] || 0) + 1, m), {});
+  const dayKey = (ts) => { const d = new Date(ts); d.setHours(0, 0, 0, 0); return d.getTime(); };
+
+  function summarize(rows) {
+    const views = rows.filter((r) => r.event === "pageview");
+    return {
+      rows, views,
+      visitors: uniq(views),
+      cta: rows.filter((r) => r.event === "cta").length,
+      form: rows.filter((r) => r.event === "form").length
+    };
+  }
+
+  /* =========================================================
+     TOOLTIP
+     ========================================================= */
+  const tip = $("#tooltip");
+  const showTip = (html, x, y) => {
+    tip.innerHTML = html; tip.classList.add("show");
+    const w = tip.offsetWidth, h = tip.offsetHeight;
+    tip.style.left = Math.min(x + 14, innerWidth - w - 8) + "px";
+    tip.style.top = (y - h - 14 < 8 ? y + 18 : y - h - 14) + "px";
+  };
+  const hideTip = () => tip.classList.remove("show");
+
+  /* =========================================================
+     RENDER
+     ========================================================= */
+  function kpi(el, icon, label, value, prev, series, note) {
+    const diff = prev ? (value - prev) / prev : null;
+    const arrow = diff == null ? "" : diff >= 0 ? "▲" : "▼";
+    const deltaTxt = diff == null ? "sem período anterior" : `<b>${arrow} ${pct(Math.abs(diff))}</b> vs. ${days} dias anteriores`;
+    const max = Math.max(...series, 1);
+    const pts = series.map((v, i) => `${(i / Math.max(series.length - 1, 1)) * 100},${32 - (v / max) * 28}`).join(" ");
+    el.innerHTML = `
+      <div class="label"><svg class="icon" aria-hidden="true"><use href="#${icon}"/></svg>${label}</div>
+      <div class="value">${fmt.format(value)}</div>
+      <div class="delta">${deltaTxt}${note ? ` · ${note}` : ""}</div>
+      <svg class="spark" viewBox="0 0 100 34" preserveAspectRatio="none" aria-hidden="true">
+        <polyline points="${pts}" fill="none" stroke="#C58C70" stroke-width="1.5" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>
+      </svg>`;
+  }
+
+  function dailySeries(rows, start, n) {
+    const m = countBy(rows.map((r) => ({ k: dayKey(r.created_at) })), "k");
+    return Array.from({ length: n }, (_, i) => { const k = dayKey(start + i * DAY); return { t: k, v: m[k] || 0 }; });
+  }
+
+  function renderDaily(cur, prev) {
+    const box = $("#daily-chart");
+    const W = Math.max(box.clientWidth, 300), H = 280, L = 36, R = 8, T = 12, B = 28;
+    const max = Math.ceil(Math.max(...cur.map((d) => d.v), ...prev.map((d) => d.v), 4) / 4) * 4;
+    const x = (i) => L + (i / Math.max(cur.length - 1, 1)) * (W - L - R);
+    const y = (v) => T + (1 - v / max) * (H - T - B);
+    const path = (s) => s.map((d, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(d.v).toFixed(1)}`).join("");
+    const grid = [0, .25, .5, .75, 1].map((f) => {
+      const v = Math.round(max * f), yy = y(v);
+      return `<line class="grid-line" x1="${L}" x2="${W - R}" y1="${yy}" y2="${yy}"/><text class="axis-label" x="${L - 8}" y="${yy + 4}" text-anchor="end">${v}</text>`;
+    }).join("");
+    // Rótulos do eixo x: mantém o último e descarta os que ficariam a menos de 90px um do outro
+    const idx = [];
+    for (let i = cur.length - 1; i >= 0; i -= 1) if (!idx.length || x(idx[idx.length - 1]) - x(i) >= 90) idx.push(i);
+    if (x(idx[idx.length - 1]) - L < 30 && idx.length > 1) idx[idx.length - 1] = 0;
+    const xl = idx.map((i) => `<text class="axis-label" x="${x(i)}" y="${H - 6}" text-anchor="${i === 0 ? "start" : i === cur.length - 1 ? "end" : "middle"}">${new Date(cur[i].t).toLocaleDateString("pt-BR", { day: "2-digit", month: "short" }).replace(".", "")}</text>`).join("");
+    box.innerHTML = `
+      <svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Gráfico de acessos por dia">
+        ${grid}
+        <path class="line-prev" d="${path(prev)}"/>
+        <path class="area" d="${path(cur)}L${x(cur.length - 1)},${y(0)}L${x(0)},${y(0)}Z"/>
+        <path class="line" d="${path(cur)}"/>
+        ${xl}
+        <line class="cross" y1="${T}" y2="${H - B}" x1="-10" x2="-10" visibility="hidden"/>
+        <circle class="dot" r="5" cx="-10" cy="-10" visibility="hidden"/>
+        <rect x="${L}" y="0" width="${W - L - R}" height="${H}" fill="transparent" class="hit"/>
+      </svg>`;
+    const svg = box.querySelector("svg"), cross = svg.querySelector(".cross"), dot = svg.querySelector(".dot");
+    const hit = svg.querySelector(".hit");
+    const move = (e) => {
+      const rect = svg.getBoundingClientRect();
+      const px = (e.clientX - rect.left) * (W / rect.width);
+      const i = Math.max(0, Math.min(cur.length - 1, Math.round((px - L) / (W - L - R) * (cur.length - 1))));
+      cross.setAttribute("x1", x(i)); cross.setAttribute("x2", x(i)); cross.setAttribute("visibility", "visible");
+      dot.setAttribute("cx", x(i)); dot.setAttribute("cy", y(cur[i].v)); dot.setAttribute("visibility", "visible");
+      const date = new Date(cur[i].t).toLocaleDateString("pt-BR", { weekday: "short", day: "2-digit", month: "long" });
+      showTip(`<b>${date}</b><br>${fmt.format(cur[i].v)} acessos<br><span class="t-muted">Período anterior: ${fmt.format(prev[i]?.v ?? 0)}</span>`, e.clientX, e.clientY);
+    };
+    hit.addEventListener("pointermove", move);
+    hit.addEventListener("pointerleave", () => { hideTip(); cross.setAttribute("visibility", "hidden"); dot.setAttribute("visibility", "hidden"); });
+
+    $("#daily-table").innerHTML = `<table><thead><tr><th>Dia</th><th class="num">Acessos</th><th class="num">Período anterior</th></tr></thead><tbody>${
+      cur.map((d, i) => `<tr><td>${new Date(d.t).toLocaleDateString("pt-BR")}</td><td class="num">${d.v}</td><td class="num">${prev[i]?.v ?? 0}</td></tr>`).reverse().join("")
+    }</tbody></table>`;
+  }
+
+  function bars(el, entries, total, opts = {}) {
+    const max = Math.max(...entries.map((e) => e.v), 1);
+    el.innerHTML = entries.length ? entries.map((e) => `
+      <li class="bar-row" data-tip="${esc(e.tip || `${e.label}: ${fmt.format(e.v)}`)}">
+        <div class="name">${e.icon ? `<svg class="icon" aria-hidden="true"><use href="#${e.icon}"/></svg>` : ""}<span>${esc(e.label)}</span></div>
+        <div class="num">${opts.pctOnly ? pct(e.v / total) : fmt.format(e.v)}${!opts.pctOnly && total ? `<small>${pct(e.v / total)}</small>` : ""}</div>
+        <div class="bar-track"><div class="bar-fill" style="width:${(e.v / max) * 100}%"></div></div>
+      </li>`).join("") : `<li class="empty">Sem dados no período.</li>`;
+    el.querySelectorAll(".bar-row").forEach((row) => {
+      row.addEventListener("pointermove", (ev) => showTip(esc(row.dataset.tip), ev.clientX, ev.clientY));
+      row.addEventListener("pointerleave", hideTip);
+    });
+  }
+
+  function renderFunnel(s) {
+    const byVisitor = (ev, sec) => new Set(s.rows.filter((r) => r.event === ev && (!sec || r.section === sec)).map((r) => r.visitor)).size;
+    const steps = [
+      ["Visitaram o site", s.visitors],
+      ["Leram “Psicoterapia”", byVisitor("section", "psicoterapia")],
+      ["Chegaram ao Contato", byVisitor("section", "contato")],
+      ["Clicaram em “Agendar”", byVisitor("cta")],
+      ["Enviaram mensagem", byVisitor("form")]
+    ];
+    const top = Math.max(steps[0][1], 1);
+    $("#funnel").innerHTML = steps.map(([n, v]) => `
+      <div class="funnel-step">
+        <span class="name">${n}</span><span class="num">${fmt.format(v)}<small>${pct(v / top)}</small></span>
+        <div class="bar-track"><div class="bar-fill" style="width:${(v / top) * 100}%"></div></div>
+      </div>`).join("");
+  }
+
+  /* ---------- Geoportal ---------- */
+  let map, layer;
+  function initMap() {
+    if (map || !window.L) return;
+    map = L.map("map", { minZoom: 1, zoomControl: true, scrollWheelZoom: false, worldCopyJump: true, attributionControl: true }).setView([20, -20], 2);
+    L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
+      maxZoom: 16, attribution: "Mapa-base &copy; Esri, HERE, Garmin, OpenStreetMap"
+    }).addTo(map);
+    layer = L.layerGroup().addTo(map);
+    map.on("click", () => map.scrollWheelZoom.enable());
+    map.on("mouseout", () => map.scrollWheelZoom.disable());
+  }
+
+  function renderGeo(s) {
+    const filter = $("#country-filter").value;
+    const views = s.views.filter((r) => r.city && (!filter || r.country === filter));
+    const groups = {};
+    views.forEach((r) => {
+      const k = r.city + "|" + r.country;
+      const g = groups[k] || (groups[k] = { city: r.city, region: r.region, country: r.country, lat: 0, lon: 0, v: 0, vis: new Set() });
+      g.v++; g.lat += r.lat; g.lon += r.lon; g.vis.add(r.visitor);
+    });
+    const list = Object.values(groups).map((g) => ({ ...g, lat: g.lat / g.v, lon: g.lon / g.v, visitors: g.vis.size })).sort((a, b) => b.v - a.v);
+    const max = Math.max(...list.map((g) => g.v), 1);
+    const radius = (v) => 5 + Math.sqrt(v / max) * 21;
+
+    // Filtro de países (mantém a seleção)
+    const countries = Object.entries(countBy(s.views.filter((r) => r.country), "country")).sort((a, b) => b[1] - a[1]);
+    const sel = $("#country-filter");
+    sel.innerHTML = `<option value="">Todos os países (${countries.length})</option>` +
+      countries.map(([c, n]) => `<option value="${esc(c)}"${c === filter ? " selected" : ""}>${esc(c)} · ${fmt.format(n)}</option>`).join("");
+
+    if (map) {
+      layer.clearLayers();
+      list.slice().reverse().forEach((g) => {
+        L.circleMarker([g.lat, g.lon], {
+          radius: radius(g.v), color: "#FFFCF8", weight: 1.5, fillColor: "#A96246", fillOpacity: .5
+        }).bindTooltip(
+          `<b>${esc(g.city)}</b>, ${esc(g.country)}<br>${fmt.format(g.v)} acessos · ${fmt.format(g.visitors)} visitantes`,
+          { className: "geo-tip", direction: "top", offset: [0, -4] }
+        ).on("mouseover", function () { this.setStyle({ fillOpacity: .8 }); })
+         .on("mouseout", function () { this.setStyle({ fillOpacity: .5 }); })
+         .addTo(layer);
+      });
+      if (list.length) map.fitBounds(L.latLngBounds(list.map((g) => [g.lat, g.lon])).pad(0.25), { maxZoom: 6 });
+    }
+
+    const total = views.length;
+    bars($("#city-bars"), list.slice(0, 12).map((g) => ({
+      label: `${g.city}`, v: g.v, tip: `${g.city} (${g.region}, ${g.country}): ${fmt.format(g.v)} acessos, ${fmt.format(g.visitors)} visitantes`
+    })), total);
+
+    const legendVals = [max, Math.round(max / 4), Math.max(1, Math.round(max / 16))];
+    $("#size-legend").innerHTML = legendVals.map((v) => `<div><i style="width:${radius(v) * 2}px;height:${radius(v) * 2}px"></i>${fmt.format(v)}</div>`).join("") + `<span>acessos por cidade</span>`;
+    $("#country-chips").innerHTML = countries.slice(0, 8).map(([c, n]) => `<span class="chip"><b>${esc(c)}</b> ${pct(n / Math.max(s.views.length, 1))}</span>`).join("");
+  }
+
+  /* ---------- Heatmap ---------- */
+  function renderHeat(s) {
+    const grid = Array.from({ length: 7 }, () => Array(24).fill(0));
+    s.views.forEach((r) => { const d = new Date(r.created_at); grid[d.getDay()][d.getHours()]++; });
+    const max = Math.max(...grid.flat(), 1);
+    const steps = ["#F5EEE5", "#EBD3C3", "#DDB19A", "#C58C70", "#A96246", "#8D4F38"];
+    const color = (v) => v === 0 ? steps[0] : steps[Math.min(steps.length - 1, 1 + Math.floor((v / max) * (steps.length - 1.001)))];
+    const names = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+    const order = [1, 2, 3, 4, 5, 6, 0];
+    let html = `<span></span>` + Array.from({ length: 24 }, (_, h) => `<span class="h-hour">${h % 3 === 0 ? h + "h" : ""}</span>`).join("");
+    order.forEach((d) => {
+      html += `<span class="h-label">${names[d]}</span>` + grid[d].map((v, h) =>
+        `<span class="cell" style="background:${color(v)}" data-tip="${names[d]}, ${h}h–${h + 1}h: ${v} acessos"></span>`).join("");
+    });
+    const el = $("#heatmap"); el.innerHTML = html;
+    el.querySelectorAll(".cell").forEach((c) => {
+      c.addEventListener("pointermove", (e) => showTip(c.dataset.tip, e.clientX, e.clientY));
+      c.addEventListener("pointerleave", hideTip);
+    });
+    $("#heat-legend").innerHTML = `menos ${steps.map((c) => `<i style="background:${c}"></i>`).join("")} mais`;
+  }
+
+  /* ---------- Recentes ---------- */
+  function renderRecent(s) {
+    const rows = s.rows.filter((r) => r.event !== "section").sort((a, b) => b.created_at - a.created_at).slice(0, 10);
+    const when = (t) => {
+      const m = Math.round((Date.now() - t) / 60000);
+      if (m < 60) return `há ${Math.max(m, 1)} min`;
+      if (m < 1440) return `há ${Math.round(m / 60)} h`;
+      return new Date(t).toLocaleDateString("pt-BR", { day: "2-digit", month: "short" }).replace(".", "");
+    };
+    const label = { pageview: "Visita", cta: "Clicou em Agendar", form: "Enviou mensagem" };
+    $("#recent").innerHTML = rows.length ? `<table><thead><tr><th>Quando</th><th>Local</th><th>Ação</th><th>Origem</th></tr></thead><tbody>${
+      rows.map((r) => `<tr><td class="muted">${when(r.created_at)}</td><td>${esc(r.city || "—")}${r.country_code ? `, ${esc(r.country_code)}` : ""}</td>
+        <td><span class="pill${r.event !== "pageview" ? " pill--cta" : ""}">${label[r.event]}</span></td><td>${esc((REFS[r.referrer] || [r.referrer])[0])}</td></tr>`).join("")
+    }</tbody></table>` : `<p class="empty">Nenhum acesso ainda.</p>`;
+  }
+
+  /* ---------- Tudo ---------- */
+  let current;
+  function render() {
+    const b = periodBounds(days);
+    const cur = summarize(within(b.start, b.end));
+    const prev = summarize(within(b.prevStart, b.prevEnd));
+    current = cur;
+
+    const fmtD = (t) => new Date(t).toLocaleDateString("pt-BR", { day: "2-digit", month: "long" });
+    $("#range-label").textContent = `Últimos ${days} dias · ${fmtD(b.start)} a ${fmtD(b.end)}`;
+
+    const curDaily = dailySeries(cur.views, b.start, days);
+    const prevDaily = dailySeries(prev.views, b.prevStart, days);
+    const dailyOf = (rows) => dailySeries(rows, b.start, days).map((d) => d.v);
+    const visitorsDaily = curDaily.map((d) => new Set(cur.views.filter((r) => dayKey(r.created_at) === d.t).map((r) => r.visitor)).size);
+
+    kpi($("#kpi-views"), "i-eye", "Acessos", cur.views.length, prev.views.length, curDaily.map((d) => d.v));
+    kpi($("#kpi-visitors"), "i-users", "Visitantes únicos", cur.visitors, prev.visitors, visitorsDaily);
+    kpi($("#kpi-cta"), "i-calendar", "Cliques em “Agendar”", cur.cta, prev.cta, dailyOf(cur.rows.filter((r) => r.event === "cta")));
+    kpi($("#kpi-form"), "i-mail", "Mensagens enviadas", cur.form, prev.form, dailyOf(cur.rows.filter((r) => r.event === "form")),
+      cur.visitors ? `${(cur.form / cur.visitors * 100).toLocaleString("pt-BR", { maximumFractionDigits: 1 })}% de conversão` : "");
+
+    renderDaily(curDaily, prevDaily);
+    renderFunnel(cur);
+    renderGeo(cur);
+
+    const refs = Object.entries(countBy(cur.views, "referrer")).sort((a, b) => b[1] - a[1]);
+    bars($("#ref-bars"), refs.map(([k, v]) => ({ label: (REFS[k] || [k])[0], icon: (REFS[k] || [0, "i-link"])[1], v })), cur.views.length);
+
+    const secVisitors = {};
+    cur.rows.filter((r) => r.event === "section" || r.event === "pageview").forEach((r) => (secVisitors[r.section] ||= new Set()).add(r.visitor));
+    bars($("#section-bars"), Object.keys(SECTIONS).filter((k) => secVisitors[k]).map((k) => ({
+      label: SECTIONS[k], v: secVisitors[k].size, tip: `${SECTIONS[k]}: ${fmt.format(secVisitors[k].size)} visitantes`
+    })).sort((a, b) => b.v - a.v), Math.max(cur.visitors, 1), { pctOnly: true });
+
+    const devs = Object.entries(countBy(cur.views, "device")).sort((a, b) => b[1] - a[1]);
+    bars($("#device-bars"), devs.map(([k, v]) => ({ label: (DEVICES[k] || [k])[0], icon: (DEVICES[k] || [0, "i-desktop"])[1], v })), cur.views.length);
+
+    renderHeat(cur);
+    renderRecent(cur);
+  }
+
+  /* =========================================================
+     FLUXO
+     ========================================================= */
+  async function loadData() {
+    ALL = LIVE ? await fetchLive(Date.now() - 181 * DAY) : demoData();
+  }
+
+  async function showApp() {
+    $("#login").hidden = true;
+    $("#app").hidden = false;
+    $("#demo-badge").hidden = LIVE;
+    const h = new Date().getHours();
+    $("#greeting").textContent = `${h < 12 ? "Bom dia" : h < 18 ? "Boa tarde" : "Boa noite"}, Rejane.`;
+    initMap();
+    await loadData();
+    render();
+    setTimeout(() => { map && map.invalidateSize(); renderGeo(current); }, 60);
+  }
+
+  function logout() {
+    session = null;
+    try { sessionStorage.removeItem("rr_admin_session"); } catch {}
+    location.reload();
+  }
+
+  // Login
+  const form = $("#login-form");
+  if (!LIVE) {
+    form.querySelectorAll("[data-live]").forEach((el) => el.hidden = true);
+    form.querySelector("button").textContent = "Entrar na demonstração";
+    $("#login-note").textContent = "As estatísticas ainda não estão ligadas a um banco de dados. O painel mostra dados fictícios para você conhecer o layout.";
+  } else {
+    $("#login-note").textContent = "Acesso restrito à administradora do site.";
+  }
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const err = form.querySelector(".login-error");
+    err.textContent = "";
+    try {
+      if (LIVE) await login($("#l-email").value.trim(), $("#l-pass").value);
+      else sessionStorage.setItem("rr_admin_session", JSON.stringify({ demo: true }));
+      await showApp();
+    } catch (ex) { err.textContent = ex.message || "Não foi possível entrar."; }
+  });
+
+  if (session && (session.demo ? !LIVE : session.expires > Date.now())) showApp().catch(() => logout());
+
+  // Controles
+  document.querySelectorAll(".segmented button").forEach((b) => b.addEventListener("click", () => {
+    document.querySelectorAll(".segmented button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    days = +b.dataset.days;
+    render();
+  }));
+  $("#country-filter").addEventListener("change", () => renderGeo(current));
+  $("#logout").addEventListener("click", logout);
+  $("#export").addEventListener("click", () => {
+    const cols = ["created_at", "event", "section", "referrer", "device", "city", "region", "country"];
+    const lines = [cols.join(";")].concat(current.rows.map((r) => cols.map((c) =>
+      c === "created_at" ? new Date(r[c]).toISOString() : `"${String(r[c] ?? "").replace(/"/g, '""')}"`).join(";")));
+    const blob = new Blob(["﻿" + lines.join("\n")], { type: "text/csv;charset=utf-8" });
+    const a = Object.assign(document.createElement("a"), { href: URL.createObjectURL(blob), download: `acessos-${days}dias.csv` });
+    a.click(); URL.revokeObjectURL(a.href);
+  });
+  let rt;
+  addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => current && render(), 150); });
+})();
+</script>
+</body>
+</html>
