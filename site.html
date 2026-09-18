@@ -372,9 +372,12 @@ p { margin: 0; }
   font-family: var(--font-hand); font-size: 30px; line-height: 1; color: var(--ink-900);
 }
 .polaroid--main { top: 0; left: 4%; width: 70%; z-index: 2; }
-.polaroid--main .polaroid-detail { object-position: 0% 25%; transform: scale(2.2); transform-origin: 0% 20%; }
-.polaroid--small { right: 0; bottom: 2%; width: 44%; transform: rotate(3deg); z-index: 3; padding-bottom: 44px; }
-.polaroid--small figcaption { font-size: 24px; bottom: 10px; }
+.polaroid--raw { background: none; padding: 0; box-shadow: none; transform: rotate(-1deg); }
+.polaroid--raw img { width: 100%; height: auto; clip-path: inset(0 0 0 2.4%); filter: drop-shadow(0 14px 30px rgba(64, 45, 32, 0.14)); }
+.polaroid--raw figcaption { position: static; max-width: 52%; margin: var(--space-3) 0 0 var(--space-2); color: var(--clay-600); transform: rotate(-3deg); }
+.polaroid--small img { object-position: 50% 30%; }
+.polaroid--small { right: 0; bottom: 0; width: 44%; transform: rotate(3deg); z-index: 3; padding-bottom: 60px; }
+.polaroid--small figcaption { font-size: 22px; bottom: 8px; }
 .polaroid--small .ph { aspect-ratio: 1; }
 
 .tape {
@@ -505,7 +508,8 @@ p { margin: 0; }
 
 /* Viagens band */
 .travel { display: grid; grid-template-columns: 7fr 5fr; gap: var(--space-10); align-items: center; }
-.travel-media { position: relative; aspect-ratio: 16 / 11; }
+.travel-media { position: relative; aspect-ratio: 5 / 4; }
+.travel-media img { object-position: 50% 28%; }
 .travel-media .organic { position: absolute; inset: 0; }
 .travel .handwritten { font-size: 44px; display: block; margin-top: var(--space-6); }
 
@@ -661,7 +665,8 @@ p { margin: 0; }
   .essence-list li:nth-child(4)::before { display: block; }
   .about-collage { min-height: 470px; }
   .polaroid--main { width: 78%; left: 0; }
-  .polaroid--small { width: 50%; }
+  .polaroid--small { width: 46%; }
+  .polaroid--raw figcaption { max-width: 36%; font-size: 24px; }
   .timeline, .services, .articles, .notes { grid-template-columns: 1fr; }
   .note:nth-child(2) { margin-top: 0; }
   .form-card { padding: var(--space-7) var(--space-5); }
@@ -857,19 +862,16 @@ p { margin: 0; }
   <div class="container">
     <div class="about-grid">
       <div class="about-collage reveal">
-        <figure class="polaroid polaroid--main">
-          <span class="tape" aria-hidden="true"></span>
-          <div class="ph" data-label="Rejane">
-            <img class="photo polaroid-detail" src="img/rejane-consultorio.jpg" alt="Detalhe do consultório: quadro com a frase “Todo processo importa.” e flores sobre a mesa" onerror="this.remove()">
-          </div>
-          <figcaption>Meu cantinho de escuta.</figcaption>
+        <figure class="polaroid polaroid--main polaroid--raw">
+          <img src="img/rejane-polaroid-cachorro.jpg" alt="Rejane abraçada ao seu cachorro, em foto preto e branco estilo polaroid" onerror="this.remove()">
+          <figcaption>A vida é mais bonita com eles.</figcaption>
         </figure>
         <figure class="polaroid polaroid--small">
           <span class="tape" aria-hidden="true"></span>
-          <div class="ph" data-label="café">
-            <img class="photo" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=600&q=80" alt="Xícara de café sobre a mesa" onerror="this.remove()">
+          <div class="ph" data-label="Rejane">
+            <img src="img/rejane-folha.jpg" alt="Rejane sorrindo com uma folha de outono cobrindo parte do rosto, em foto preto e branco" onerror="this.remove()">
           </div>
-          <figcaption>Dias melhores também são possíveis.</figcaption>
+          <figcaption>Novos lugares, novas versões.</figcaption>
         </figure>
         <svg class="about-leaf" aria-hidden="true"><use href="#botanical"/></svg>
       </div>
@@ -1126,7 +1128,7 @@ p { margin: 0; }
     <div class="travel">
       <div class="travel-media reveal">
         <div class="organic organic-right ph" data-label="Viagens e experiências">
-          <img class="photo" src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1400&q=80" alt="Vista de Londres ao entardecer" onerror="this.remove()">
+          <img class="photo" src="img/rejane-londres.jpg" alt="Rejane às margens do Tâmisa, em Londres, com a Tower Bridge ao fundo" onerror="this.remove()">
         </div>
       </div>
       <div>
