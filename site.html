@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rejane Rispoli · Psicóloga</title>
+<meta name="description" content="Rejane Rispoli, psicóloga (CRP 09/009924). Psicoterapia online para brasileiros que vivem processos de mudança, adaptação e reconstrução.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   1. TOKENS
+   ========================================================= */
+:root {
+  /* Colors */
+  --cream-50: #FAF7F2;
+  --cream-100: #F5EEE5;
+  --cream-200: #EADCCD;
+  --sand-300: #D8C3AD;
+  --clay-400: #C58C70;
+  --clay-500: #A96246;
+  --clay-600: #8D4F38;
+  --olive-500: #73705D;
+  --brown-600: #625348;
+  --ink-900: #26211E;
+  --white: #FFFCF8;
+  --icon-bg: #F3E6D9;
+
+  --color-bg: var(--cream-50);
+  --color-bg-secondary: var(--cream-100);
+  --color-surface: var(--white);
+  --color-sand: var(--sand-300);
+  --color-clay-light: var(--clay-400);
+  --color-clay: var(--clay-500);
+  --color-clay-dark: var(--clay-600);
+  --color-olive: var(--olive-500);
+  --color-text: var(--ink-900);
+  --color-text-secondary: var(--brown-600);
+
+  /* Typography */
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "Inter", Arial, sans-serif;
+  --font-hand: "Allura", "Brush Script MT", cursive;
+
+  --fs-display-xl: 72px;
+  --fs-h1: 64px;
+  --fs-h2: 48px;
+  --fs-h3: 34px;
+  --fs-h4: 24px;
+
+  /* Spacing (base 4px) */
+  --space-1: 4px;  --space-2: 8px;   --space-3: 12px;  --space-4: 16px;
+  --space-5: 24px; --space-6: 32px;  --space-7: 40px;  --space-8: 48px;
+  --space-9: 64px; --space-10: 80px; --space-11: 96px; --space-12: 128px;
+  --section-y: var(--space-12);
+
+  /* Radius */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* Shadows */
+  --shadow-soft: 0 8px 30px rgba(64, 45, 32, 0.06);
+  --shadow-card: 0 4px 18px rgba(64, 45, 32, 0.05);
+  --shadow-floating: 0 14px 40px rgba(64, 45, 32, 0.10);
+
+  /* Motion */
+  --motion-fast: 180ms;
+  --motion-normal: 300ms;
+  --motion-slow: 500ms;
+  --ease-standard: cubic-bezier(.2, .8, .2, 1);
+
+  /* Layout */
+  --container: 1320px;
+  --margin: 80px;
+  --gutter: 24px;
+  --header-h: 88px;
+}
+
+@media (max-width: 1439px) { :root { --margin: 40px; } }
+@media (max-width: 1023px) {
+  :root {
+    --margin: 32px;
+    --fs-display-xl: 56px; --fs-h1: 52px; --fs-h2: 40px; --fs-h3: 30px;
+    --section-y: var(--space-11);
+  }
+}
+@media (max-width: 767px) {
+  :root {
+    --margin: 20px; --gutter: 16px;
+    --fs-display-xl: 46px; --fs-h1: 42px; --fs-h2: 36px; --fs-h3: 28px; --fs-h4: 22px;
+    --section-y: var(--space-10);
+    --header-h: 72px;
+  }
+}
+
+/* =========================================================
+   2. BASE
+   ========================================================= */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+button { font: inherit; }
+h1, h2, h3, h4 { margin: 0; font-family: var(--font-display); font-weight: 400; color: var(--ink-900); }
+p { margin: 0; }
+::selection { background: var(--cream-200); color: var(--ink-900); }
+:focus-visible { outline: 2px solid var(--clay-500); outline-offset: 3px; border-radius: 4px; }
+
+.container {
+  width: 100%;
+  max-width: calc(var(--container) + var(--margin) * 2);
+  margin-inline: auto;
+  padding-inline: var(--margin);
+}
+.section { padding-block: var(--section-y); position: relative; }
+.section--tint { background: var(--color-bg-secondary); }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Typography components */
+.display-xl { font-size: var(--fs-display-xl); line-height: .98; letter-spacing: -0.02em; }
+.h1 { font-size: var(--fs-h1); line-height: 1.02; letter-spacing: -0.02em; }
+.h2 { font-size: var(--fs-h2); line-height: 1.08; letter-spacing: -0.015em; }
+.h3 { font-size: var(--fs-h3); line-height: 1.15; letter-spacing: -0.01em; }
+.h4 { font-size: var(--fs-h4); line-height: 1.25; font-weight: 500; }
+.accent { color: var(--clay-500); font-style: italic; }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: var(--space-3);
+  font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--clay-500); line-height: 1.4;
+}
+.eyebrow--line::before { content: ""; width: 28px; height: 1px; background: currentColor; }
+.eyebrow--muted { color: var(--brown-600); }
+
+.body-lg { font-size: 18px; line-height: 1.65; color: var(--brown-600); }
+.body { font-size: 16px; line-height: 1.65; color: var(--brown-600); }
+.small { font-size: 14px; line-height: 1.55; color: var(--brown-600); }
+.caption { font-size: 12px; line-height: 1.4; color: var(--brown-600); }
+
+.handwritten {
+  font-family: var(--font-hand); font-weight: 400; color: var(--clay-500);
+  font-size: 34px; line-height: 1.1;
+}
+.handwritten--line { display: inline-flex; align-items: center; gap: var(--space-4); }
+.handwritten--line::before { content: ""; width: 36px; height: 1px; background: var(--clay-400); }
+
+.section-head { max-width: 640px; }
+.section-head .eyebrow { margin-bottom: var(--space-5); }
+.section-head .body-lg { margin-top: var(--space-5); }
+.section-head--center { margin-inline: auto; text-align: center; }
+
+/* Divider */
+.divider { display: flex; align-items: center; justify-content: center; gap: var(--space-4); color: var(--clay-400); }
+.divider::before, .divider::after { content: ""; flex: 0 1 120px; height: 1px; background: var(--sand-300); }
+.divider svg { width: 18px; height: 18px; }
+
+/* Icons */
+.icon { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.icon-circle {
+  width: 56px; height: 56px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--icon-bg); color: var(--clay-500);
+}
+
+/* =========================================================
+   3. BUTTONS & LINKS
+   ========================================================= */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-3);
+  height: 52px; padding: 0 28px; border-radius: var(--radius-pill);
+  font-family: var(--font-body); font-size: 15px; font-weight: 500; text-decoration: none;
+  border: 1px solid transparent; cursor: pointer; white-space: nowrap;
+  transition: background-color var(--motion-normal) var(--ease-standard),
+              color var(--motion-normal) var(--ease-standard),
+              border-color var(--motion-normal) var(--ease-standard),
+              transform var(--motion-normal) var(--ease-standard),
+              box-shadow var(--motion-normal) var(--ease-standard);
+}
+.btn .icon { width: 18px; height: 18px; }
+.btn--primary { background: var(--clay-500); color: var(--white); }
+.btn--primary:hover { background: var(--clay-600); transform: translateY(-2px); box-shadow: var(--shadow-soft); }
+.btn--secondary { background: transparent; color: var(--ink-900); border-color: var(--clay-500); }
+.btn--secondary:hover { background: var(--white); color: var(--clay-600); transform: translateY(-2px); }
+.btn--sm { height: 44px; padding: 0 22px; font-size: 14px; }
+
+.text-link {
+  display: inline-flex; align-items: center; gap: var(--space-3);
+  font-size: 16px; font-weight: 500; color: var(--ink-900); text-decoration: none;
+  position: relative; padding-bottom: 4px;
+  transition: color var(--motion-normal) var(--ease-standard);
+}
+.text-link::after {
+  content: ""; position: absolute; left: 0; bottom: 0; height: 1px; width: 100%;
+  background: var(--clay-500); transform: scaleX(0); transform-origin: left;
+  transition: transform var(--motion-slow) var(--ease-standard);
+}
+.text-link .icon { width: 18px; height: 18px; transition: transform var(--motion-normal) var(--ease-standard); }
+.text-link:hover { color: var(--clay-600); }
+.text-link:hover::after { transform: scaleX(1); }
+.text-link:hover .icon { transform: translateX(4px); }
+
+/* =========================================================
+   4. HEADER / NAVIGATION
+   ========================================================= */
+.site-header {
+  position: fixed; inset: 0 0 auto 0; z-index: 50;
+  background: rgba(250, 247, 242, 0.92);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--motion-normal) var(--ease-standard), box-shadow var(--motion-normal) var(--ease-standard);
+}
+.site-header.is-scrolled { border-color: rgba(216, 195, 173, .5); box-shadow: 0 4px 18px rgba(64, 45, 32, 0.04); }
+.header-inner {
+  height: var(--header-h); display: flex; align-items: center; justify-content: space-between; gap: var(--space-6);
+  transition: height var(--motion-normal) var(--ease-standard);
+}
+.site-header.is-scrolled .header-inner { height: 70px; }
+
+.logo { display: inline-flex; align-items: center; gap: var(--space-4); text-decoration: none; color: var(--ink-900); }
+.logo-mark { width: 52px; height: 52px; color: var(--clay-600); flex: none; transition: width var(--motion-normal), height var(--motion-normal); }
+.site-header.is-scrolled .logo-mark { width: 44px; height: 44px; }
+.logo-text { display: flex; flex-direction: column; line-height: 1; }
+.logo-name { font-family: var(--font-display); font-size: 24px; letter-spacing: -0.01em; }
+.logo-meta { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--brown-600); margin-top: 6px; }
+
+.nav { display: flex; align-items: center; gap: var(--space-7); }
+.nav-list { display: flex; gap: var(--space-6); list-style: none; margin: 0; padding: 0; }
+.nav-list a {
+  font-size: 14px; color: var(--brown-600); text-decoration: none; position: relative; padding: 6px 0;
+  transition: color var(--motion-fast) var(--ease-standard);
+}
+.nav-list a::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--clay-500);
+  transform: scaleX(0); transition: transform var(--motion-normal) var(--ease-standard);
+}
+.nav-list a:hover, .nav-list a.is-active { color: var(--clay-500); }
+.nav-list a.is-active::after { transform: scaleX(1); }
+
+.menu-toggle {
+  display: none; width: 44px; height: 44px; border: 1px solid var(--sand-300); border-radius: 50%;
+  background: transparent; color: var(--ink-900); cursor: pointer; place-items: center;
+}
+.menu-toggle span, .menu-toggle span::before, .menu-toggle span::after {
+  display: block; width: 18px; height: 1.4px; background: currentColor; position: relative;
+  transition: transform var(--motion-normal) var(--ease-standard), opacity var(--motion-fast);
+}
+.menu-toggle span::before, .menu-toggle span::after { content: ""; position: absolute; left: 0; }
+.menu-toggle span::before { top: -6px; }
+.menu-toggle span::after { top: 6px; }
+.menu-open .menu-toggle span { background: transparent; }
+.menu-open .menu-toggle span::before { transform: translateY(6px) rotate(45deg); }
+.menu-open .menu-toggle span::after { transform: translateY(-6px) rotate(-45deg); }
+
+/* Mobile navigation */
+.mobile-nav {
+  position: fixed; inset: 0; z-index: 40; background: var(--cream-50);
+  padding: calc(var(--header-h) + var(--space-8)) var(--margin) var(--space-8);
+  display: flex; flex-direction: column; justify-content: space-between;
+  opacity: 0; visibility: hidden; transform: translateY(-8px);
+  transition: opacity var(--motion-normal) var(--ease-standard), transform var(--motion-normal) var(--ease-standard), visibility 0s linear var(--motion-normal);
+}
+.menu-open .mobile-nav { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+.mobile-nav ul { list-style: none; margin: 0; padding: 0; }
+.mobile-nav li { border-bottom: 1px solid var(--cream-200); }
+.mobile-nav li a {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: var(--space-4) 0; font-family: var(--font-display); font-size: 30px; text-decoration: none; color: var(--ink-900);
+}
+.mobile-nav li a small { font-family: var(--font-body); font-size: 12px; color: var(--clay-500); letter-spacing: .1em; }
+.mobile-nav .btn { width: 100%; margin-top: var(--space-7); }
+.mobile-nav .handwritten { margin-top: var(--space-6); display: block; text-align: center; }
+
+/* =========================================================
+   5. ORGANIC SHAPES
+   ========================================================= */
+.organic { position: relative; overflow: hidden; background: linear-gradient(160deg, var(--cream-200), var(--sand-300)); }
+.organic img { width: 100%; height: 100%; object-fit: cover; }
+.organic-left  { clip-path: url(#organic-left); }
+.organic-right { clip-path: url(#organic-right); }
+.organic-soft  { clip-path: url(#organic-soft); }
+.organic-deep  { clip-path: url(#organic-deep); }
+
+/* Photo placeholder fallback (quando a imagem não carrega) */
+.ph { position: relative; background: linear-gradient(160deg, var(--cream-200), var(--sand-300)); }
+.ph::before {
+  content: attr(data-label); position: absolute; inset: 0; display: grid; place-items: center; padding: var(--space-5);
+  font-family: var(--font-hand); font-size: 30px; color: var(--clay-600); text-align: center; opacity: .7;
+}
+.ph img { position: relative; z-index: 1; }
+
+/* Photo treatment: luz natural, quente, contraste moderado */
+.photo { filter: saturate(.9) contrast(.96) sepia(.08); }
+
+/* =========================================================
+   6. HERO
+   ========================================================= */
+.hero { position: relative; padding-top: var(--header-h); min-height: min(100vh, 920px); display: flex; background: var(--cream-50); overflow: hidden; }
+.hero-grid {
+  display: grid; grid-template-columns: 46fr 54fr; width: 100%;
+  max-width: calc(var(--container) + var(--margin) * 2); margin-inline: auto;
+}
+.hero-content {
+  padding: var(--space-11) var(--space-9) var(--space-11) var(--margin);
+  display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 2;
+}
+.hero-content .eyebrow { margin-bottom: var(--space-6); }
+.hero-content .body-lg { margin-top: var(--space-6); max-width: 460px; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-4); margin-top: var(--space-8); }
+.hero-content .handwritten { margin-top: var(--space-8); font-size: 36px; }
+
+.hero-media { position: relative; min-height: 640px; }
+.hero-media .organic { position: absolute; inset: 0 0 0 0; }
+.hero-media .organic img { object-position: 100% 30%; transform-origin: 100% 50%; transform: translateY(var(--parallax, 0px)) scale(1.06); will-change: transform; }
+.hero-badge {
+  position: absolute; left: 4%; bottom: 12%; z-index: 3;
+  background: var(--white); border-radius: var(--radius-md); box-shadow: var(--shadow-floating);
+  padding: var(--space-4) var(--space-5); display: flex; align-items: center; gap: var(--space-4);
+}
+.hero-badge .icon-circle { width: 44px; height: 44px; }
+.hero-badge strong { display: block; font-family: var(--font-display); font-weight: 400; font-size: 18px; line-height: 1.2; }
+.hero-badge span { font-size: 12px; color: var(--brown-600); letter-spacing: .04em; }
+
+.hero-leaf { position: absolute; left: -40px; bottom: -30px; width: 180px; color: var(--sand-300); z-index: 0; pointer-events: none; }
+
+/* =========================================================
+   7. ESSÊNCIA
+   ========================================================= */
+.essence { padding-block: var(--space-9); background: var(--cream-100); border-block: 1px solid var(--cream-200); }
+.essence-list {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--gutter);
+}
+.essence-list li {
+  display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--space-3);
+  font-family: var(--font-display); font-size: 19px; color: var(--ink-900);
+  position: relative;
+}
+.essence-list li + li::before {
+  content: ""; position: absolute; left: calc(var(--gutter) / -2); top: 12%; bottom: 12%; width: 1px; background: var(--sand-300);
+}
+.essence-list .icon { color: var(--clay-400); }
+
+/* =========================================================
+   8. SOBRE MIM (scrapbook restrito a esta seção)
+   ========================================================= */
+.about-grid { display: grid; grid-template-columns: 5fr 7fr; gap: var(--space-10); align-items: center; }
+.about-collage { position: relative; min-height: 600px; }
+
+.polaroid {
+  position: absolute; background: var(--white); padding: 14px 14px 64px; box-shadow: var(--shadow-floating);
+  transform: rotate(-2deg);
+}
+.polaroid .ph { aspect-ratio: 4 / 5; overflow: hidden; }
+.polaroid img { width: 100%; height: 100%; object-fit: cover; }
+.polaroid figcaption {
+  position: absolute; left: 20px; right: 20px; bottom: 14px;
+  font-family: var(--font-hand); font-size: 30px; line-height: 1; color: var(--ink-900);
+}
+.polaroid--main { top: 0; left: 4%; width: 70%; z-index: 2; }
+.polaroid--main .polaroid-detail { object-position: 0% 25%; transform: scale(2.2); transform-origin: 0% 20%; }
+.polaroid--small { right: 0; bottom: 2%; width: 44%; transform: rotate(3deg); z-index: 3; padding-bottom: 44px; }
+.polaroid--small figcaption { font-size: 24px; bottom: 10px; }
+.polaroid--small .ph { aspect-ratio: 1; }
+
+.tape {
+  position: absolute; width: 110px; height: 30px; z-index: 4;
+  background: rgba(234, 220, 205, .85);
+  box-shadow: 0 1px 2px rgba(64, 45, 32, .06);
+  clip-path: polygon(3% 8%, 97% 0, 100% 90%, 1% 100%);
+}
+.polaroid--main .tape { top: -14px; left: 50%; transform: translateX(-50%) rotate(-4deg); }
+.polaroid--small .tape { top: -12px; right: 18px; width: 80px; transform: rotate(8deg); }
+
+.about-leaf { position: absolute; left: -20px; bottom: 10px; width: 140px; color: var(--clay-400); opacity: .7; z-index: 1; }
+
+.about-content .eyebrow { margin-bottom: var(--space-5); }
+.about-content .h2 { max-width: 560px; }
+.about-content p + p { margin-top: var(--space-4); }
+.about-content .body-lg:first-of-type { margin-top: var(--space-6); }
+.about-sign { margin-top: var(--space-7); display: flex; align-items: center; gap: var(--space-7); flex-wrap: wrap; }
+
+/* Timeline */
+.timeline {
+  margin-top: var(--space-11); list-style: none; padding: 0;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gutter);
+  position: relative;
+}
+.timeline::before { content: ""; position: absolute; left: 0; right: 0; top: 22px; height: 1px; background: var(--sand-300); }
+.timeline-item { position: relative; padding-right: var(--space-5); }
+.timeline-item .num {
+  display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
+  background: var(--cream-50); border: 1px solid var(--clay-400); color: var(--clay-500);
+  font-family: var(--font-display); font-size: 15px; position: relative;
+}
+.timeline-item .count { display: block; margin-top: var(--space-5); font-size: 12px; letter-spacing: .14em; color: var(--brown-600); }
+.timeline-item h3 { margin-top: var(--space-2); }
+.timeline-item p { margin-top: var(--space-3); }
+
+/* Curiosidades: personal notes */
+.notes { margin-top: var(--space-11); display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-7); }
+.note {
+  position: relative; background: var(--white); padding: var(--space-7) var(--space-6) var(--space-6);
+  box-shadow: var(--shadow-card); border-radius: 2px;
+  background-image: linear-gradient(transparent 31px, rgba(216, 195, 173, .35) 32px);
+  background-size: 100% 32px; background-position: 0 20px;
+}
+.note:nth-child(1) { transform: rotate(-1.5deg); }
+.note:nth-child(2) { transform: rotate(1deg); margin-top: var(--space-6); }
+.note:nth-child(3) { transform: rotate(-.8deg); }
+.note .tape { top: -14px; left: 50%; width: 90px; transform: translateX(-50%) rotate(2deg); }
+.note .handwritten { font-size: 32px; color: var(--ink-900); }
+.note p { margin-top: var(--space-3); font-size: 15px; color: var(--brown-600); line-height: 32px; }
+.note .icon { position: absolute; right: 20px; top: 22px; color: var(--clay-400); width: 20px; height: 20px; }
+
+/* =========================================================
+   9. PSICOTERAPIA (composição limpa)
+   ========================================================= */
+.therapy-head { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-10); align-items: end; }
+.therapy-head .body-lg + .body-lg { margin-top: var(--space-4); }
+
+.services { margin-top: var(--space-10); display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); }
+.service-card {
+  background: rgba(255, 252, 248, .55); border: 1px solid var(--cream-200); border-radius: var(--radius-md);
+  padding: var(--space-7) var(--space-6);
+  transition: background-color var(--motion-normal) var(--ease-standard), transform var(--motion-normal) var(--ease-standard), box-shadow var(--motion-normal) var(--ease-standard), border-color var(--motion-normal);
+}
+.service-card:hover { background: var(--white); transform: translateY(-3px); box-shadow: var(--shadow-card); border-color: var(--sand-300); }
+.service-card h3 { margin-top: var(--space-6); }
+.service-card p { margin-top: var(--space-3); }
+
+/* Como funciona */
+.process-grid { display: grid; grid-template-columns: 6fr 5fr; gap: var(--space-10); align-items: center; }
+.process-media { position: relative; aspect-ratio: 5 / 6; }
+.process-media .organic { position: absolute; inset: 0; }
+.process-media .handwritten {
+  position: absolute; right: -8px; bottom: -34px; font-size: 38px; transform: rotate(-6deg); z-index: 2;
+}
+.steps { list-style: none; margin: var(--space-8) 0 0; padding: 0; }
+.step { display: grid; grid-template-columns: 56px 1fr; gap: var(--space-5); padding: var(--space-5) 0; border-top: 1px solid var(--cream-200); }
+.step:last-child { border-bottom: 1px solid var(--cream-200); }
+.step .num {
+  width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--clay-400); color: var(--clay-500);
+  display: grid; place-items: center; font-family: var(--font-display); font-size: 16px;
+}
+.step h3 { font-size: 20px; line-height: 1.3; font-weight: 400; }
+.step p { margin-top: var(--space-1); }
+.process-cta { margin-top: var(--space-8); display: flex; gap: var(--space-4); flex-wrap: wrap; align-items: center; }
+
+/* =========================================================
+   10. QUOTE BLOCK
+   ========================================================= */
+.quote-block { text-align: center; max-width: 900px; margin-inline: auto; padding-block: var(--space-6); }
+.quote-mark { font-family: var(--font-display); font-size: 120px; line-height: .6; color: var(--clay-400); display: block; height: 56px; }
+.quote-block blockquote { margin: var(--space-6) 0 0; }
+.quote-block blockquote p { font-family: var(--font-display); font-size: clamp(30px, 4.2vw, 52px); line-height: 1.15; letter-spacing: -0.015em; color: var(--ink-900); }
+.quote-block footer { margin-top: var(--space-8); display: flex; flex-direction: column; align-items: center; gap: var(--space-4); }
+.quote-block footer::before { content: ""; width: 40px; height: 1px; background: var(--clay-400); }
+.quote-block cite { font-style: normal; font-size: 12px; letter-spacing: .24em; text-transform: uppercase; color: var(--clay-500); }
+
+/* =========================================================
+   11. CONTEÚDOS
+   ========================================================= */
+.content-head { display: flex; justify-content: space-between; align-items: end; gap: var(--space-8); flex-wrap: wrap; }
+.tags { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-8); }
+.tag {
+  height: 36px; padding: 0 18px; border-radius: var(--radius-pill);
+  background: var(--cream-100); border: 1px solid var(--cream-200); color: var(--brown-600);
+  font-size: 13px; cursor: pointer;
+  transition: background-color var(--motion-fast) var(--ease-standard), color var(--motion-fast), border-color var(--motion-fast);
+}
+.tag:hover { border-color: var(--clay-400); color: var(--clay-600); }
+.tag[aria-pressed="true"] { background: var(--clay-500); border-color: var(--clay-500); color: var(--white); }
+
+.articles { margin-top: var(--space-7); display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); }
+.article-card {
+  display: flex; flex-direction: column; background: var(--white); border-radius: var(--radius-md); overflow: hidden;
+  text-decoration: none; box-shadow: var(--shadow-card);
+  transition: transform var(--motion-normal) var(--ease-standard), box-shadow var(--motion-normal) var(--ease-standard), opacity var(--motion-normal);
+}
+.article-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-soft); }
+.article-card[hidden] { display: none; }
+.article-card .ph { aspect-ratio: 16 / 10; overflow: hidden; }
+.article-card img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--motion-slow) var(--ease-standard); }
+.article-card:hover img { transform: scale(1.03); }
+.article-body { padding: var(--space-5) var(--space-6) var(--space-6); display: flex; flex-direction: column; flex: 1; }
+.article-cat { font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--clay-500); }
+.article-card h3 { font-size: 22px; line-height: 1.25; margin-top: var(--space-3); }
+.article-meta { margin-top: auto; padding-top: var(--space-5); display: flex; align-items: center; gap: var(--space-2); }
+.article-meta .icon { width: 16px; height: 16px; color: var(--clay-400); }
+
+/* Viagens band */
+.travel { display: grid; grid-template-columns: 7fr 5fr; gap: var(--space-10); align-items: center; }
+.travel-media { position: relative; aspect-ratio: 16 / 11; }
+.travel-media .organic { position: absolute; inset: 0; }
+.travel .handwritten { font-size: 44px; display: block; margin-top: var(--space-6); }
+
+/* =========================================================
+   12. FAQ
+   ========================================================= */
+.faq-grid { display: grid; grid-template-columns: 4fr 7fr; gap: var(--space-10); align-items: start; }
+.faq-aside { position: sticky; top: 120px; }
+.faq-aside .body-lg { margin-top: var(--space-5); }
+.faq-aside .text-link { margin-top: var(--space-6); }
+.accordion { border-top: 1px solid var(--sand-300); }
+.accordion-item { border-bottom: 1px solid var(--sand-300); }
+.accordion-item summary {
+  list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: var(--space-5);
+  padding: var(--space-6) 0; font-family: var(--font-display); font-size: 22px; line-height: 1.3; color: var(--ink-900);
+  transition: color var(--motion-fast);
+}
+.accordion-item summary::-webkit-details-marker { display: none; }
+.accordion-item summary:hover { color: var(--clay-600); }
+.accordion-item .plus {
+  width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--sand-300); flex: none; position: relative;
+  transition: background-color var(--motion-normal), border-color var(--motion-normal), transform var(--motion-normal) var(--ease-standard);
+}
+.accordion-item .plus::before, .accordion-item .plus::after {
+  content: ""; position: absolute; left: 50%; top: 50%; width: 12px; height: 1.4px; background: var(--clay-500);
+  transform: translate(-50%, -50%);
+}
+.accordion-item .plus::after { transform: translate(-50%, -50%) rotate(90deg); transition: transform var(--motion-normal) var(--ease-standard); }
+.accordion-item[open] .plus { background: var(--icon-bg); border-color: var(--icon-bg); }
+.accordion-item[open] .plus::after { transform: translate(-50%, -50%) rotate(0deg); }
+.accordion-panel { overflow: hidden; }
+.accordion-panel p { padding: 0 var(--space-9) var(--space-6) 0; }
+
+/* =========================================================
+   13. CONTATO
+   ========================================================= */
+.contact { background: var(--cream-100); overflow: hidden; }
+.contact-grid { display: grid; grid-template-columns: 5fr 6fr; gap: var(--space-10); align-items: stretch; }
+.contact-info .eyebrow { margin-bottom: var(--space-5); }
+.contact-info .body-lg { margin-top: var(--space-5); max-width: 460px; }
+.contact-list { list-style: none; padding: 0; margin: var(--space-8) 0 0; display: grid; gap: var(--space-5); }
+.contact-list li { display: flex; align-items: center; gap: var(--space-4); }
+.contact-list .icon-circle { width: 48px; height: 48px; }
+.contact-list strong { display: block; font-weight: 500; font-size: 15px; }
+.contact-list span { font-size: 14px; color: var(--brown-600); }
+.contact-media { margin-top: var(--space-8); height: 200px; max-width: 420px; }
+
+.form-card { background: var(--white); border-radius: var(--radius-lg); padding: var(--space-8); box-shadow: var(--shadow-soft); }
+.form-card .h3 { margin-bottom: var(--space-2); }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); margin-top: var(--space-7); }
+.field { display: flex; flex-direction: column; gap: var(--space-2); }
+.field--full { grid-column: 1 / -1; }
+.field label { font-size: 13px; font-weight: 500; color: var(--ink-900); }
+.field input, .field textarea, .field select {
+  font: inherit; font-size: 15px; color: var(--ink-900);
+  background: var(--cream-50); border: 1px solid var(--sand-300); border-radius: var(--radius-sm);
+  padding: 13px 16px; transition: border-color var(--motion-fast), box-shadow var(--motion-fast), background-color var(--motion-fast);
+  -webkit-appearance: none; appearance: none;
+}
+.field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%23A96246' stroke-width='1.4'%3E%3Cpath d='m1 1.5 5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px;
+}
+.field textarea { min-height: 130px; resize: vertical; }
+.field input::placeholder, .field textarea::placeholder { color: #9A8a7e; }
+.field input:focus, .field textarea:focus, .field select:focus {
+  outline: none; border-color: var(--clay-400); background: var(--white); box-shadow: 0 0 0 4px rgba(197, 140, 112, .15);
+}
+.form-foot { margin-top: var(--space-6); display: flex; align-items: center; justify-content: space-between; gap: var(--space-5); flex-wrap: wrap; }
+.form-foot .caption { max-width: 280px; }
+.form-status { margin-top: var(--space-4); font-size: 14px; color: var(--olive-500); min-height: 1.4em; }
+
+/* =========================================================
+   14. FOOTER
+   ========================================================= */
+.site-footer { background: var(--cream-50); padding-block: var(--space-9) var(--space-7); border-top: 1px solid var(--cream-200); }
+.footer-top { display: grid; grid-template-columns: auto 1fr auto; gap: var(--space-8); align-items: center; }
+.footer-top .handwritten { font-size: 30px; color: var(--brown-600); text-align: center; }
+.social { display: flex; gap: var(--space-3); list-style: none; margin: 0; padding: 0; }
+.social a {
+  width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; color: var(--ink-900);
+  border: 1px solid var(--cream-200); transition: color var(--motion-fast), border-color var(--motion-fast), background-color var(--motion-fast);
+}
+.social a:hover { color: var(--clay-500); border-color: var(--clay-400); background: var(--white); }
+.social .icon { width: 20px; height: 20px; }
+.footer-bottom {
+  margin-top: var(--space-8); padding-top: var(--space-5); border-top: 1px solid var(--cream-200);
+  display: flex; justify-content: space-between; gap: var(--space-4); flex-wrap: wrap;
+}
+.footer-bottom nav { display: flex; gap: var(--space-5); }
+.footer-bottom a { text-decoration: none; }
+.footer-bottom a:hover { color: var(--clay-500); }
+
+/* =========================================================
+   15. MOTION
+   ========================================================= */
+.reveal { opacity: 0; transform: translateY(16px); transition: opacity 560ms var(--ease-standard), transform 560ms var(--ease-standard); }
+.reveal.is-visible { opacity: 1; transform: none; }
+.reveal-d1 { transition-delay: 80ms; } .reveal-d2 { transition-delay: 160ms; } .reveal-d3 { transition-delay: 240ms; }
+.note.reveal.is-visible:nth-child(1) { transform: rotate(-1.5deg); }
+.note.reveal.is-visible:nth-child(2) { transform: rotate(1deg); }
+.note.reveal.is-visible:nth-child(3) { transform: rotate(-.8deg); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 1ms !important; animation-duration: 1ms !important; }
+  .reveal { opacity: 1; transform: none; }
+  .hero-media .organic img { transform: scale(1.06) !important; }
+}
+
+/* =========================================================
+   16. RESPONSIVE
+   ========================================================= */
+@media (max-width: 1279px) {
+  .nav-list { gap: var(--space-5); }
+  .nav { gap: var(--space-6); }
+}
+@media (max-width: 1100px) {
+  .nav-list, .nav .btn { display: none; }
+  .menu-toggle { display: grid; }
+}
+@media (max-width: 1023px) {
+  .hero { min-height: auto; }
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-content { padding: var(--space-9) var(--margin) var(--space-8); }
+  .hero-media { min-height: 0; aspect-ratio: 4 / 4.2; margin-left: var(--margin); }
+  .hero-media .organic { clip-path: url(#organic-soft); }
+  .hero-leaf { display: none; }
+
+  .essence-list { grid-template-columns: repeat(3, 1fr); row-gap: var(--space-7); }
+  .essence-list li:nth-child(4)::before { display: none; }
+
+  .about-grid, .therapy-head, .process-grid, .travel, .faq-grid, .contact-grid { grid-template-columns: 1fr; gap: var(--space-8); }
+  .about-collage { min-height: 560px; max-width: 560px; width: 100%; margin-inline: auto; }
+  .timeline { grid-template-columns: repeat(2, 1fr); row-gap: var(--space-8); }
+  .timeline::before { display: none; }
+  .services, .articles { grid-template-columns: repeat(2, 1fr); }
+  .notes { grid-template-columns: repeat(2, 1fr); }
+  .process-media { max-width: 520px; }
+  .faq-aside { position: static; }
+  .footer-top { grid-template-columns: 1fr; justify-items: start; }
+  .footer-top .handwritten { text-align: left; }
+}
+@media (max-width: 767px) {
+  .logo-mark { width: 44px; height: 44px; }
+  .logo-name { font-size: 20px; }
+  .logo-meta { font-size: 9px; letter-spacing: .16em; }
+  .hero-actions .btn { width: 100%; }
+  .hero-media { margin-left: var(--margin); margin-right: 0; aspect-ratio: 4 / 4.6; }
+  .hero-badge { left: auto; right: var(--margin); bottom: 6%; }
+  .essence-list { grid-template-columns: repeat(2, 1fr); }
+  .essence-list li:nth-child(odd)::before { display: none; }
+  .essence-list li:nth-child(4)::before { display: block; }
+  .about-collage { min-height: 470px; }
+  .polaroid--main { width: 78%; left: 0; }
+  .polaroid--small { width: 50%; }
+  .timeline, .services, .articles, .notes { grid-template-columns: 1fr; }
+  .note:nth-child(2) { margin-top: 0; }
+  .form-card { padding: var(--space-7) var(--space-5); }
+  .form-grid { grid-template-columns: 1fr; }
+  .form-foot .btn { width: 100%; }
+  .accordion-item summary { font-size: 19px; }
+  .accordion-panel p { padding-right: 0; }
+  .quote-mark { font-size: 96px; height: 44px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================================================
+     SVG DEFINITIONS: organic clip paths + icon sprite
+     ========================================================= -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <!-- Organic Split: curva suave na borda esquerda da foto -->
+    <clipPath id="organic-left" clipPathUnits="objectBoundingBox">
+      <path d="M0.2,0 C0.06,0.12 0.13,0.3 0.07,0.46 C0.01,0.62 0.1,0.78 0.03,0.9 C0.01,0.95 0.04,1 0.08,1 L1,1 L1,0 Z"/>
+    </clipPath>
+    <!-- Espelho: curva na borda direita da foto -->
+    <clipPath id="organic-right" clipPathUnits="objectBoundingBox">
+      <path d="M0,0 L0.86,0 C0.97,0.14 0.9,0.32 0.95,0.5 C1,0.68 0.9,0.84 0.97,1 L0,1 Z"/>
+    </clipPath>
+    <!-- Arco suave, bordas arredondadas -->
+    <clipPath id="organic-soft" clipPathUnits="objectBoundingBox">
+      <path d="M0.08,0.2 C0.1,0.07 0.26,0 0.5,0.01 C0.74,0.02 0.93,0.06 0.96,0.2 C0.99,0.36 0.95,0.6 0.98,0.82 C1,0.95 0.92,1 0.8,1 L0.14,1 C0.04,1 0,0.94 0.02,0.82 C0.05,0.6 0.06,0.38 0.08,0.2 Z"/>
+    </clipPath>
+    <!-- S profundo, recorte mais dramático -->
+    <clipPath id="organic-deep" clipPathUnits="objectBoundingBox">
+      <path d="M0.3,0 C0.08,0.1 0.02,0.28 0.12,0.44 C0.22,0.6 0.02,0.74 0.06,1 L1,1 L1,0 Z"/>
+    </clipPath>
+  </defs>
+
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10Z"/><path d="M2 21c0-3 1.9-5.4 5.1-6C9.5 14.5 12 13 13 12"/></symbol>
+  <symbol id="i-flower" viewBox="0 0 24 24"><path d="M12 21c-4 0-8-2.5-8-7 2 0 4 .6 5.5 2"/><path d="M12 21c4 0 8-2.5 8-7-2 0-4 .6-5.5 2"/><path d="M12 21c-2.5-2-3.5-4.5-3.5-7.5S10 7 12 5c2 2 3.5 5.5 3.5 8.5S14.5 19 12 21Z"/><path d="M8.6 12.6C6.5 11.5 5 9.5 5 7c2 0 3.5.5 4.8 1.6"/><path d="M15.4 12.6C17.5 11.5 19 9.5 19 7c-2 0-3.5.5-4.8 1.6"/></symbol>
+  <symbol id="i-feather" viewBox="0 0 24 24"><path d="M12.7 21.3C18 18 21 12 19 5c-6 1-11 5-12.5 11.5"/><path d="M16 8 2 22"/><path d="M17.5 15H9"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-waves" viewBox="0 0 24 24"><path d="M2 9c2.5-2 4.5-2 7 0s4.5 2 7 0 4.5-2 6 0"/><path d="M2 15c2.5-2 4.5-2 7 0s4.5 2 7 0 4.5-2 6 0"/></symbol>
+  <symbol id="i-sprout" viewBox="0 0 24 24"><path d="M12 22V9"/><path d="M12 13c-4 0-7-2.5-7-7 4 0 7 2.5 7 7Z"/><path d="M12 9c0-3.5 2.5-6 6-6 0 3.5-2.5 6-6 6Z"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10Z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol>
+  <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16.24 7.76-2.12 6.36-6.36 2.12 2.12-6.36 6.36-2.12Z"/></symbol>
+  <symbol id="i-ear" viewBox="0 0 24 24"><path d="M6 8.5a6.5 6.5 0 1 1 13 0c0 6-6 6-6 10a3.5 3.5 0 1 1-7 0"/><path d="M15 8.5a2.5 2.5 0 0 0-5 0v1a2 2 0 1 1 0 4"/></symbol>
+  <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M7 21h10"/><path d="M3 7h18"/><path d="m6 7-3 7a3.5 3.5 0 0 0 6 0Z"/><path d="m18 7-3 7a3.5 3.5 0 0 0 6 0Z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+  <symbol id="i-video" viewBox="0 0 24 24"><path d="m16 13 5.2 3.5a.5.5 0 0 0 .8-.4V7.9a.5.5 0 0 0-.8-.4L16 11"/><rect x="2" y="6" width="14" height="12" rx="2"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-coffee" viewBox="0 0 24 24"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><path d="M6 2v2M10 2v2M14 2v2"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2Z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7Z"/></symbol>
+  <symbol id="i-plane" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2Z"/></symbol>
+  <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6Z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></symbol>
+
+  <!-- Monograma RR -->
+  <symbol id="logo-rr" viewBox="0 0 64 64">
+    <circle cx="32" cy="32" r="30.5" fill="none" stroke="currentColor" stroke-width="1"/>
+    <text x="18" y="41" font-family="Playfair Display, Georgia, serif" font-size="26" fill="currentColor" stroke="none">R</text>
+    <text x="28" y="44" font-family="Playfair Display, Georgia, serif" font-size="26" fill="currentColor" stroke="none">R</text>
+    <path d="M40 52c4-1 7-4 9-8" fill="none" stroke="currentColor" stroke-width=".8" stroke-linecap="round"/>
+    <path d="M44 50.5c.5-2 2-3 3.6-3.2-.3 1.8-1.6 3-3.6 3.2Z M47 47.6c.3-2 1.6-3.2 3.2-3.6 0 1.8-1.3 3.2-3.2 3.6Z M41.5 51.8c0-1.8 1.2-3 2.8-3.5.1 1.7-1 3-2.8 3.5Z" fill="currentColor" stroke="none" opacity=".8"/>
+  </symbol>
+
+  <!-- Ramo botânico, traço fino -->
+  <symbol id="botanical" viewBox="0 0 160 260">
+    <g fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M40 258C58 200 70 140 112 20"/>
+      <path d="M98 60c-18-6-30-20-32-40 18 6 30 20 32 40Z"/><path d="M98 60 72 26"/>
+      <path d="M104 44c14-10 30-12 44-6-12 12-28 14-44 6Z"/><path d="M104 44l38-4"/>
+      <path d="M84 104c-20-2-36-14-42-32 20 2 36 14 42 32Z"/><path d="M84 104 48 76"/>
+      <path d="M90 92c14-14 32-18 48-14-10 16-28 20-48 14Z"/><path d="M90 92l42-12"/>
+      <path d="M70 150c-20 2-38-8-48-24 20-2 38 8 48 24Z"/><path d="M70 150 28 128"/>
+      <path d="M76 136c10-16 28-24 44-22-6 18-24 26-44 22Z"/><path d="M76 136l38-20"/>
+      <path d="M58 196c-18 6-38 0-50-14 18-6 38 0 50 14Z"/><path d="M58 196 14 184"/>
+    </g>
+  </symbol>
+</svg>
+
+<a class="visually-hidden" href="#conteudo">Pular para o conteúdo</a>
+
+<!-- =========================================================
+     HEADER
+     ========================================================= -->
+<header class="site-header" id="topo">
+  <div class="container header-inner">
+    <a class="logo" href="#inicio" aria-label="Rejane Rispoli, página inicial">
+      <svg class="logo-mark" aria-hidden="true"><use href="#logo-rr"/></svg>
+      <span class="logo-text">
+        <span class="logo-name">Rejane Rispoli</span>
+        <span class="logo-meta">Psicóloga · CRP 09/009924</span>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="Principal">
+      <ul class="nav-list">
+        <li><a href="#inicio" class="is-active">Início</a></li>
+        <li><a href="#sobre">Sobre mim</a></li>
+        <li><a href="#psicoterapia">Psicoterapia</a></li>
+        <li><a href="#conteudos">Conteúdos</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+      <a class="btn btn--primary btn--sm" href="#contato">
+        <svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg>
+        Agendar uma conversa
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-nav"><span></span></button>
+    </nav>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+  <ul>
+    <li><a href="#inicio">Início <small>01</small></a></li>
+    <li><a href="#sobre">Sobre mim <small>02</small></a></li>
+    <li><a href="#psicoterapia">Psicoterapia <small>03</small></a></li>
+    <li><a href="#conteudos">Conteúdos <small>04</small></a></li>
+    <li><a href="#faq">FAQ <small>05</small></a></li>
+    <li><a href="#contato">Contato <small>06</small></a></li>
+  </ul>
+  <div>
+    <a class="btn btn--primary" href="#contato">
+      <svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg>
+      Agendar uma conversa
+    </a>
+    <span class="handwritten">Todo processo importa.</span>
+  </div>
+</div>
+
+<main id="conteudo">
+
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+<section class="hero" id="inicio">
+  <div class="hero-grid">
+    <div class="hero-content">
+      <span class="eyebrow eyebrow--line reveal">Psicoterapia online</span>
+      <h1 class="h1 reveal reveal-d1">Um espaço para compreender o que <span class="accent">você</span> está vivendo.</h1>
+      <p class="body-lg reveal reveal-d2">Psicoterapia para brasileiros que vivem diferentes processos de mudança, adaptação e reconstrução, estejam onde estiverem.</p>
+      <div class="hero-actions reveal reveal-d3">
+        <a class="btn btn--primary" href="#contato">
+          <svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg>
+          Agendar uma conversa
+        </a>
+        <a class="btn btn--secondary" href="#psicoterapia">Conheça meu trabalho</a>
+      </div>
+      <span class="handwritten handwritten--line reveal reveal-d3">Todo processo importa.</span>
+    </div>
+
+    <div class="hero-media">
+      <!-- Substituir pela fotografia de Rejane (luz natural, tons quentes) -->
+      <div class="organic organic-left ph" data-label="Foto de Rejane">
+        <img class="photo" src="img/rejane-consultorio.jpg" alt="Rejane Rispoli sorrindo em seu consultório, sentada à mesa com notebook, caderno e xícara de café" onerror="this.remove()">
+      </div>
+      <div class="hero-badge reveal reveal-d3">
+        <span class="icon-circle"><svg class="icon" aria-hidden="true"><use href="#i-globe"/></svg></span>
+        <div><strong>Atendimento online</strong><span>Para brasileiros no Brasil e no exterior</span></div>
+      </div>
+    </div>
+  </div>
+  <svg class="hero-leaf" aria-hidden="true"><use href="#botanical"/></svg>
+</section>
+
+<!-- =========================================================
+     ESSÊNCIA
+     ========================================================= -->
+<section class="essence" aria-label="Essência do trabalho">
+  <div class="container">
+    <ul class="essence-list">
+      <li class="reveal"><svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg>Acolhimento</li>
+      <li class="reveal reveal-d1"><svg class="icon" aria-hidden="true"><use href="#i-ear"/></svg>Escuta</li>
+      <li class="reveal reveal-d2"><svg class="icon" aria-hidden="true"><use href="#i-feather"/></svg>Autenticidade</li>
+      <li class="reveal"><svg class="icon" aria-hidden="true"><use href="#i-scale"/></svg>Equilíbrio</li>
+      <li class="reveal reveal-d1"><svg class="icon" aria-hidden="true"><use href="#i-sprout"/></svg>Transformação</li>
+      <li class="reveal reveal-d2"><svg class="icon" aria-hidden="true"><use href="#i-compass"/></svg>Novos caminhos</li>
+    </ul>
+  </div>
+</section>
+
+<!-- =========================================================
+     SOBRE MIM
+     ========================================================= -->
+<!-- Texto provisório: revisar com Rejane -->
+<section class="section" id="sobre">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-collage reveal">
+        <figure class="polaroid polaroid--main">
+          <span class="tape" aria-hidden="true"></span>
+          <div class="ph" data-label="Rejane">
+            <img class="photo polaroid-detail" src="img/rejane-consultorio.jpg" alt="Detalhe do consultório: quadro com a frase “Todo processo importa.” e flores sobre a mesa" onerror="this.remove()">
+          </div>
+          <figcaption>Meu cantinho de escuta.</figcaption>
+        </figure>
+        <figure class="polaroid polaroid--small">
+          <span class="tape" aria-hidden="true"></span>
+          <div class="ph" data-label="café">
+            <img class="photo" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=600&q=80" alt="Xícara de café sobre a mesa" onerror="this.remove()">
+          </div>
+          <figcaption>Dias melhores também são possíveis.</figcaption>
+        </figure>
+        <svg class="about-leaf" aria-hidden="true"><use href="#botanical"/></svg>
+      </div>
+
+      <div class="about-content">
+        <span class="eyebrow eyebrow--line reveal">Minha história</span>
+        <h2 class="h2 reveal reveal-d1">Histórias reais. <span class="accent">Processos únicos.</span></h2>
+        <p class="body-lg reveal reveal-d2">Sou Rejane Rispoli, psicóloga. Acredito que cada pessoa carrega uma história que merece ser escutada com tempo, cuidado e sem pressa de encontrar respostas prontas.</p>
+        <p class="body reveal reveal-d2">Meu trabalho acompanha pessoas em momentos de mudança: uma nova cidade, um novo país, o fim de um ciclo, uma decisão difícil. Também conheço, na própria pele, o que é recomeçar longe de casa, e isso atravessa a forma como escuto quem chega até mim.</p>
+        <p class="body reveal reveal-d2">A terapia, para mim, é um espaço para compreender o que você está vivendo e construir, no seu ritmo, novas possibilidades.</p>
+        <div class="about-sign reveal reveal-d3">
+          <a class="text-link" href="#psicoterapia">Conheça minha abordagem <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <span class="handwritten" style="font-size:30px">em constante movimento.</span>
+        </div>
+      </div>
+    </div>
+
+    <ol class="timeline" aria-label="Minha trajetória">
+      <li class="timeline-item reveal">
+        <span class="num">01</span>
+        <span class="count">01 / 04</span>
+        <h3 class="h4">Formação</h3>
+        <p class="small">A psicologia como escolha de vida: estudar o humano para aprender a escutá-lo.</p>
+      </li>
+      <li class="timeline-item reveal reveal-d1">
+        <span class="num">02</span>
+        <span class="count">02 / 04</span>
+        <h3 class="h4">Escuta clínica</h3>
+        <p class="small">Anos de prática com pessoas em diferentes fases, dores e perguntas.</p>
+      </li>
+      <li class="timeline-item reveal reveal-d2">
+        <span class="num">03</span>
+        <span class="count">03 / 04</span>
+        <h3 class="h4">Em movimento</h3>
+        <p class="small">Viver fora do Brasil trouxe novas lentes sobre pertencimento e identidade.</p>
+      </li>
+      <li class="timeline-item reveal reveal-d3">
+        <span class="num">04</span>
+        <span class="count">04 / 04</span>
+        <h3 class="h4">Hoje</h3>
+        <p class="small">Atendimento online para brasileiros que vivem processos de mudança, onde estiverem.</p>
+      </li>
+    </ol>
+
+    <!-- Curiosidades -->
+    <div class="notes" aria-label="Curiosidades">
+      <article class="note reveal">
+        <span class="tape" aria-hidden="true"></span>
+        <svg class="icon" aria-hidden="true"><use href="#i-coffee"/></svg>
+        <h3 class="handwritten">Café por perto</h3>
+        <p>As melhores conversas quase sempre começam com uma xícara quente nas mãos.</p>
+      </article>
+      <article class="note reveal reveal-d1">
+        <span class="tape" aria-hidden="true"></span>
+        <svg class="icon" aria-hidden="true"><use href="#i-book"/></svg>
+        <h3 class="handwritten">Livros e cadernos</h3>
+        <p>Leio sobre gente, lugares e histórias. E anoto tudo o que me faz pensar.</p>
+      </article>
+      <article class="note reveal reveal-d2">
+        <span class="tape" aria-hidden="true"></span>
+        <svg class="icon" aria-hidden="true"><use href="#i-plane"/></svg>
+        <h3 class="handwritten">Novos lugares</h3>
+        <p>Cada cidade nova me lembra que também somos feitos de recomeços.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     PSICOTERAPIA
+     ========================================================= -->
+<section class="section section--tint" id="psicoterapia">
+  <div class="container">
+    <div class="therapy-head">
+      <div class="section-head">
+        <span class="eyebrow eyebrow--line reveal">Psicoterapia</span>
+        <h2 class="h2 reveal reveal-d1">Cuidado para os momentos em que <span class="accent">tudo muda</span>.</h2>
+      </div>
+      <div>
+        <p class="body-lg reveal reveal-d2">Mudanças nem sempre são escolhidas, e mesmo as desejadas podem trazer insegurança, saudade e perguntas difíceis.</p>
+        <p class="body-lg reveal reveal-d2">Na terapia, olhamos juntos para o que está acontecendo, sem julgamentos, para que você possa se reencontrar no meio do caminho.</p>
+      </div>
+    </div>
+
+    <div class="services">
+      <article class="service-card reveal">
+        <span class="icon-circle"><svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg></span>
+        <h3 class="h4">Mudanças e transições</h3>
+        <p class="small">Processos de adaptação pessoais, profissionais, relacionais ou geográficos.</p>
+      </article>
+      <article class="service-card reveal reveal-d1">
+        <span class="icon-circle"><svg class="icon" aria-hidden="true"><use href="#i-globe"/></svg></span>
+        <h3 class="h4">Vida no exterior</h3>
+        <p class="small">Saudade, identidade, idioma, pertencimento e a sensação de estar entre dois lugares.</p>
+      </article>
+      <article class="service-card reveal reveal-d2">
+        <span class="icon-circle"><svg class="icon" aria-hidden="true"><use href="#i-waves"/></svg></span>
+        <h3 class="h4">Ansiedade</h3>
+        <p class="small">Compreender o que a ansiedade comunica e encontrar formas mais leves de lidar com ela.</p>
+      </article>
+      <article class="service-card reveal">
+        <span class="icon-circle"><svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg></span>
+        <h3 class="h4">Relacionamentos</h3>
+        <p class="small">Vínculos afetivos, familiares e de amizade, especialmente quando a distância muda tudo.</p>
+      </article>
+      <article class="service-card reveal reveal-d1">
+        <span class="icon-circle"><svg class="icon" aria-hidden="true"><use href="#i-compass"/></svg></span>
+        <h3 class="h4">Decisões</h3>
+        <p class="small">Um espaço para pensar escolhas importantes com mais clareza e menos culpa.</p>
+      </article>
+      <article class="service-card reveal reveal-d2">
+        <span class="icon-circle"><svg class="icon" aria-hidden="true"><use href="#i-sun"/></svg></span>
+        <h3 class="h4">Recomeços</h3>
+        <p class="small">Fins de ciclo, lutos e a construção de uma nova versão de si mesmo.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     COMO FUNCIONA
+     ========================================================= -->
+<section class="section" id="como-funciona">
+  <div class="container">
+    <div class="process-grid">
+      <div>
+        <span class="eyebrow eyebrow--line reveal">Passo a passo</span>
+        <h2 class="h2 reveal reveal-d1">Como começamos</h2>
+        <p class="body-lg reveal reveal-d2" style="margin-top:var(--space-5);max-width:520px">Um processo simples, pensado para que o primeiro passo seja leve.</p>
+
+        <ol class="steps">
+          <li class="step reveal">
+            <span class="num">01</span>
+            <div><h3>Você entra em contato</h3><p class="small">Pelo formulário, e-mail ou redes sociais. Conte um pouco do que está buscando.</p></div>
+          </li>
+          <li class="step reveal reveal-d1">
+            <span class="num">02</span>
+            <div><h3>Conversamos sobre sua disponibilidade</h3><p class="small">Alinhamos dias, horários e fuso horário, se você estiver fora do Brasil.</p></div>
+          </li>
+          <li class="step reveal reveal-d2">
+            <span class="num">03</span>
+            <div><h3>Marcamos nosso primeiro encontro</h3><p class="small">Uma sessão online para nos conhecermos e entendermos juntos o seu momento.</p></div>
+          </li>
+          <li class="step reveal reveal-d3">
+            <span class="num">04</span>
+            <div><h3>Construímos o processo juntos</h3><p class="small">A terapia segue no seu ritmo, com frequência combinada entre nós.</p></div>
+          </li>
+        </ol>
+
+        <div class="process-cta reveal">
+          <a class="btn btn--primary" href="#contato">
+            <svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg>
+            Agendar uma conversa
+          </a>
+          <a class="text-link" href="#faq">Dúvidas frequentes <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+      </div>
+
+      <div class="process-media reveal reveal-d1">
+        <div class="organic organic-soft ph" data-label="Detalhes do dia a dia">
+          <img class="photo" src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&w=1000&q=80" alt="Estante com livros em luz natural" onerror="this.remove()">
+        </div>
+        <span class="handwritten">no seu ritmo.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     QUOTE
+     ========================================================= -->
+<section class="section section--tint" aria-label="Citação">
+  <div class="container">
+    <figure class="quote-block reveal">
+      <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+      <blockquote><p>Nem todos os recomeços acontecem quando mudamos de país.</p></blockquote>
+      <footer><cite>Rejane Rispoli</cite></footer>
+    </figure>
+  </div>
+</section>
+
+<!-- =========================================================
+     CONTEÚDOS
+     ========================================================= -->
+<section class="section" id="conteudos">
+  <div class="container">
+    <div class="content-head">
+      <div class="section-head">
+        <span class="eyebrow eyebrow--line reveal">Conteúdos</span>
+        <h2 class="h2 reveal reveal-d1">Reflexões para o seu caminho</h2>
+      </div>
+      <a class="text-link reveal" href="#conteudos">Ver todos os conteúdos <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+
+    <div class="tags reveal" role="group" aria-label="Filtrar conteúdos">
+      <button class="tag" type="button" data-filter="all" aria-pressed="true">Todos</button>
+      <button class="tag" type="button" data-filter="psicoterapia" aria-pressed="false">Psicoterapia</button>
+      <button class="tag" type="button" data-filter="exterior" aria-pressed="false">Vida no exterior</button>
+      <button class="tag" type="button" data-filter="decisoes" aria-pressed="false">Decisões</button>
+      <button class="tag" type="button" data-filter="relacionamentos" aria-pressed="false">Relacionamentos</button>
+      <button class="tag" type="button" data-filter="recomecos" aria-pressed="false">Recomeços</button>
+    </div>
+
+    <div class="articles">
+      <a class="article-card reveal" href="#conteudos" data-cat="decisoes">
+        <div class="ph" data-label="Processos"><img class="photo" src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=80" alt="" onerror="this.remove()"></div>
+        <div class="article-body">
+          <span class="article-cat">Decisões</span>
+          <h3>Por que tantas escolhas podem nos paralisar?</h3>
+          <span class="article-meta caption"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>4 min de leitura</span>
+        </div>
+      </a>
+      <a class="article-card reveal reveal-d1" href="#conteudos" data-cat="exterior">
+        <div class="ph" data-label="Viagens"><img class="photo" src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=900&q=80" alt="" onerror="this.remove()"></div>
+        <div class="article-body">
+          <span class="article-cat">Vida no exterior</span>
+          <h3>A saudade que ninguém conta quando você decide morar fora</h3>
+          <span class="article-meta caption"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>6 min de leitura</span>
+        </div>
+      </a>
+      <a class="article-card reveal reveal-d2" href="#conteudos" data-cat="recomecos psicoterapia">
+        <div class="ph" data-label="Recomeços"><img class="photo" src="https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=900&q=80" alt="" onerror="this.remove()"></div>
+        <div class="article-body">
+          <span class="article-cat">Recomeços</span>
+          <h3>Recomeçar não é voltar ao zero</h3>
+          <span class="article-meta caption"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>5 min de leitura</span>
+        </div>
+      </a>
+      <a class="article-card reveal" href="#conteudos" data-cat="relacionamentos exterior" hidden>
+        <div class="ph" data-label="Relacionamentos"><img class="photo" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80" alt="" onerror="this.remove()"></div>
+        <div class="article-body">
+          <span class="article-cat">Relacionamentos</span>
+          <h3>Amar à distância: vínculos que atravessam fusos</h3>
+          <span class="article-meta caption"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>5 min de leitura</span>
+        </div>
+      </a>
+      <a class="article-card reveal" href="#conteudos" data-cat="psicoterapia" hidden>
+        <div class="ph" data-label="Psicoterapia"><img class="photo" src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&w=900&q=80" alt="" onerror="this.remove()"></div>
+        <div class="article-body">
+          <span class="article-cat">Psicoterapia</span>
+          <h3>Como saber se é o momento de começar terapia?</h3>
+          <span class="article-meta caption"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>3 min de leitura</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     VIAGENS / NOVOS LUGARES
+     ========================================================= -->
+<section class="section section--tint" aria-label="Novos lugares">
+  <div class="container">
+    <div class="travel">
+      <div class="travel-media reveal">
+        <div class="organic organic-right ph" data-label="Viagens e experiências">
+          <img class="photo" src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1400&q=80" alt="Vista de Londres ao entardecer" onerror="this.remove()">
+        </div>
+      </div>
+      <div>
+        <span class="eyebrow eyebrow--line reveal">Pertencimento</span>
+        <h2 class="h3 reveal reveal-d1" style="margin-top:var(--space-5)">Mudar de lugar muda a gente. E tudo bem não saber, ainda, quem estamos nos tornando.</h2>
+        <span class="handwritten reveal reveal-d2">Novos lugares, mesmos sonhos.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     FAQ
+     ========================================================= -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="faq-grid">
+      <div class="faq-aside">
+        <span class="eyebrow eyebrow--line reveal">FAQ</span>
+        <h2 class="h2 reveal reveal-d1" style="margin-top:var(--space-5)">Perguntas frequentes</h2>
+        <p class="body-lg reveal reveal-d2">Se a sua dúvida não estiver aqui, escreva para mim. Vou responder com calma.</p>
+        <a class="text-link reveal reveal-d3" href="#contato">Enviar uma pergunta <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+
+      <div class="accordion reveal reveal-d1">
+        <details class="accordion-item" open>
+          <summary>Como funciona a terapia online?<span class="plus" aria-hidden="true"></span></summary>
+          <div class="accordion-panel"><p class="body">As sessões acontecem por videochamada, em uma plataforma segura. Você só precisa de um lugar reservado, uma conexão estável e fones de ouvido, se preferir mais privacidade.</p></div>
+        </details>
+        <details class="accordion-item">
+          <summary>Atende brasileiros que moram fora do Brasil?<span class="plus" aria-hidden="true"></span></summary>
+          <div class="accordion-panel"><p class="body">Sim. O atendimento é pensado especialmente para quem vive processos de mudança, inclusive no exterior. Combinamos os horários considerando o seu fuso.</p></div>
+        </details>
+        <details class="accordion-item">
+          <summary>Quanto tempo dura cada sessão?<span class="plus" aria-hidden="true"></span></summary>
+          <div class="accordion-panel"><p class="body">Cada sessão dura em torno de 50 minutos. A frequência, geralmente semanal, é definida em conjunto a partir do seu momento.</p></div>
+        </details>
+        <details class="accordion-item">
+          <summary>Quais são os valores e formas de pagamento?<span class="plus" aria-hidden="true"></span></summary>
+          <div class="accordion-panel"><p class="body">Os valores e formas de pagamento são informados no primeiro contato, junto com as opções disponíveis para quem está no Brasil ou no exterior.</p></div>
+        </details>
+        <details class="accordion-item">
+          <summary>O que eu falo na terapia fica em sigilo?<span class="plus" aria-hidden="true"></span></summary>
+          <div class="accordion-panel"><p class="body">Sim. O sigilo é um princípio ético da profissão, previsto no Código de Ética do Psicólogo, e é garantido em todo o processo.</p></div>
+        </details>
+        <details class="accordion-item">
+          <summary>Como sei se preciso de terapia?<span class="plus" aria-hidden="true"></span></summary>
+          <div class="accordion-panel"><p class="body">Não é preciso estar em crise para começar. Se algo tem pesado, se você sente que está repetindo padrões ou apenas quer se conhecer melhor, a terapia pode ser um bom espaço.</p></div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     CONTATO
+     ========================================================= -->
+<section class="section contact" id="contato">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <span class="eyebrow eyebrow--line reveal">Contato</span>
+        <h2 class="h2 reveal reveal-d1">Vamos conversar?</h2>
+        <p class="body-lg reveal reveal-d2">Dar o primeiro passo pode ser difícil. Escreva do seu jeito, com o que fizer sentido para você agora.</p>
+
+        <ul class="contact-list">
+          <li class="reveal"><span class="icon-circle"><svg class="icon" aria-hidden="true"><use href="#i-video"/></svg></span><div><strong>Atendimento online</strong><span>Para brasileiros em qualquer lugar do mundo</span></div></li>
+          <li class="reveal reveal-d1"><span class="icon-circle"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg></span><div><strong>Horários flexíveis</strong><span>Combinados de acordo com o seu fuso</span></div></li>
+          <li class="reveal reveal-d2"><span class="icon-circle"><svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg></span><div><strong>Sigilo profissional</strong><span>CRP 09/009924</span></div></li>
+        </ul>
+
+        <div class="divider reveal" style="justify-content:flex-start;margin-top:var(--space-8)">
+          <svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg>
+        </div>
+      </div>
+
+      <form class="form-card reveal reveal-d1" id="contact-form" novalidate>
+        <h3 class="h3">Envie uma mensagem</h3>
+        <p class="small">Respondo pessoalmente, em até dois dias úteis.</p>
+        <div class="form-grid">
+          <div class="field">
+            <label for="f-nome">Nome</label>
+            <input id="f-nome" name="nome" type="text" placeholder="Seu nome" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="f-email">E-mail</label>
+            <input id="f-email" name="email" type="email" placeholder="seuemail@exemplo.com" autocomplete="email" required>
+          </div>
+          <div class="field field--full">
+            <label for="f-local">Onde você vive hoje?</label>
+            <select id="f-local" name="local">
+              <option>No Brasil</option>
+              <option>Fora do Brasil</option>
+              <option>Em mudança</option>
+            </select>
+          </div>
+          <div class="field field--full">
+            <label for="f-msg">Mensagem</label>
+            <textarea id="f-msg" name="mensagem" placeholder="Como posso te ajudar?" required></textarea>
+          </div>
+        </div>
+        <div class="form-foot">
+          <p class="caption">Seus dados são usados apenas para responder ao seu contato.</p>
+          <button class="btn btn--primary" type="submit">
+            <svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg>
+            Enviar mensagem
+          </button>
+        </div>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <a class="logo" href="#inicio" aria-label="Rejane Rispoli, voltar ao topo">
+        <svg class="logo-mark" aria-hidden="true"><use href="#logo-rr"/></svg>
+        <span class="logo-text">
+          <span class="logo-name">Rejane Rispoli</span>
+          <span class="logo-meta">Psicóloga · CRP 09/009924</span>
+        </span>
+      </a>
+      <span class="handwritten">Um espaço para novas possibilidades.</span>
+      <ul class="social">
+        <!-- Substituir pelos links reais -->
+        <li><a href="#" aria-label="Instagram"><svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg></a></li>
+        <li><a href="#" aria-label="LinkedIn"><svg class="icon" aria-hidden="true"><use href="#i-linkedin"/></svg></a></li>
+        <li><a href="#contato" aria-label="E-mail"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg></a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom caption">
+      <span>© <span id="year">2026</span> Rejane Rispoli. Todos os direitos reservados.</span>
+      <nav aria-label="Legal">
+        <a href="#">Política de Privacidade</a>
+        <a href="#">Termos de Uso</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  // E-mail de destino do formulário (substituir pelo e-mail real de Rejane)
+  const CONTACT_EMAIL = "contato@exemplo.com";
+
+  const root = document.documentElement;
+  const header = document.querySelector(".site-header");
+  const toggle = document.querySelector(".menu-toggle");
+  const mobileNav = document.getElementById("mobile-nav");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Header: reduz altura no scroll
+  const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 24);
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  // Mobile navigation
+  const setMenu = (open) => {
+    root.classList.toggle("menu-open", open);
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
+    mobileNav.setAttribute("aria-hidden", String(!open));
+    document.body.style.overflow = open ? "hidden" : "";
+  };
+  toggle.addEventListener("click", () => setMenu(!root.classList.contains("menu-open")));
+  mobileNav.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setMenu(false)));
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(false); });
+  window.addEventListener("resize", () => { if (window.innerWidth > 1100) setMenu(false); });
+
+  // Entrada das seções
+  const reveals = document.querySelectorAll(".reveal");
+  if (reduceMotion || !("IntersectionObserver" in window)) {
+    reveals.forEach((el) => el.classList.add("is-visible"));
+  } else {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) { entry.target.classList.add("is-visible"); io.unobserve(entry.target); }
+      });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+    reveals.forEach((el) => io.observe(el));
+  }
+
+  // Link ativo na navegação
+  const navLinks = [...document.querySelectorAll(".nav-list a")];
+  const sections = navLinks.map((a) => document.querySelector(a.getAttribute("href"))).filter(Boolean);
+  if ("IntersectionObserver" in window) {
+    const navIo = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach((a) => a.classList.toggle("is-active", a.getAttribute("href") === "#" + entry.target.id));
+      });
+    }, { rootMargin: "-45% 0px -50% 0px" });
+    sections.forEach((s) => navIo.observe(s));
+  }
+
+  // Parallax discreto na foto do hero (máx. ~20px)
+  const heroImg = document.querySelector(".hero-media .organic img");
+  if (heroImg && !reduceMotion) {
+    let ticking = false;
+    window.addEventListener("scroll", () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const y = Math.min(window.scrollY, 800);
+        heroImg.style.setProperty("--parallax", (y / 800) * 20 + "px");
+        ticking = false;
+      });
+    }, { passive: true });
+  }
+
+  // Filtro de conteúdos: mostra no máximo 3 cards
+  const tags = document.querySelectorAll(".tag");
+  const cards = document.querySelectorAll(".article-card");
+  const applyFilter = (filter) => {
+    let shown = 0;
+    cards.forEach((card) => {
+      const match = filter === "all" || card.dataset.cat.split(" ").includes(filter);
+      const visible = match && shown < 3;
+      card.hidden = !visible;
+      if (visible) { shown++; card.classList.add("is-visible"); }
+    });
+  };
+  tags.forEach((tag) => tag.addEventListener("click", () => {
+    tags.forEach((t) => t.setAttribute("aria-pressed", String(t === tag)));
+    applyFilter(tag.dataset.filter);
+  }));
+
+  // Accordion: apenas um item aberto por vez
+  const items = document.querySelectorAll(".accordion-item");
+  items.forEach((item) => item.addEventListener("toggle", () => {
+    if (item.open) items.forEach((other) => { if (other !== item) other.open = false; });
+  }));
+
+  // Formulário: validação simples + envio via e-mail
+  const form = document.getElementById("contact-form");
+  const status = form.querySelector(".form-status");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const nome = (data.get("nome") || "").trim();
+    const email = (data.get("email") || "").trim();
+    const msg = (data.get("mensagem") || "").trim();
+    if (!nome || !/^\S+@\S+\.\S+$/.test(email) || !msg) {
+      status.style.color = "var(--clay-600)";
+      status.textContent = "Por favor, preencha nome, um e-mail válido e sua mensagem.";
+      return;
+    }
+    const body = `Nome: ${nome}\nE-mail: ${email}\nOnde vive: ${data.get("local")}\n\n${msg}`;
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Contato pelo site")}&body=${encodeURIComponent(body)}`;
+    status.style.color = "";
+    status.textContent = "Obrigada pela mensagem. Seu aplicativo de e-mail foi aberto para concluir o envio.";
+  });
+})();
+</script>
+</body>
+</html>
